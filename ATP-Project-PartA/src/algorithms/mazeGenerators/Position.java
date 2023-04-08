@@ -1,8 +1,8 @@
 package algorithms.mazeGenerators;
 
 public class Position {
-    int row;
-    int column;
+    private int row;
+    private int column;
     public Position(int row, int column){
         this.row = row;
         this.column = column;
@@ -20,6 +20,6 @@ public class Position {
     public boolean equals(Object other){
         if(!(other instanceof Position))
             return false;
-        return other == this || (row == ((Position)other).row && column == ((Position)other).column);
+        return other == this || (row == ((Position) other).getRowIndex() && column == ((Position) other).getColumnIndex());
     }
 }

@@ -1,5 +1,5 @@
 package algorithms.search;
 
 public abstract class ASearchingAlgorithm implements ISearchingAlgorithm{
-    String name;
+    protected String name; // TO VERIFY
 }
