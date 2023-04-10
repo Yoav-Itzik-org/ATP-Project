@@ -1,5 +1,4 @@
 package algorithms.mazeGenerators;
-import java.util.*;
 
 public class Maze {
     private int[][] array;
@@ -18,6 +17,8 @@ public class Maze {
     public void setWall(int row, int column){array[row][column] = 1;}
     public Position getStartPosition(){return start;}
     public Position getGoalPosition(){return end;}
+    public int getRows(){return rows;}
+    public int getColumns(){return columns;}
     public boolean is_start(int row, int column){return row == 0 && column == 0;}
     public boolean is_end(int row, int column){return row == rows - 1 && column == columns - 1;}
     public void print() {
