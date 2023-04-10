@@ -2,11 +2,11 @@ package algorithms.mazeGenerators;
 import java.util.*;
 
 public class Maze {
-    int[][] array;
-    int rows;
-    int columns;
-    Position start;
-    Position end;
+    private int[][] array;
+    private int rows;
+    private int columns;
+    private Position start;
+    private Position end;
     public Maze(int rows, int columns){
         this.array = new int[rows][columns];
         this.rows = rows;
@@ -14,6 +14,8 @@ public class Maze {
         this.start = new Position(0, 0);
         this.end = new Position(0, 0);
     }
+    public void setPath(int row, int column){array[row][column] = 0;}
+    public void setWall(int row, int column){array[row][column] = 1;}
     public Position getStartPosition(){return start;}
     public Position getGoalPosition(){return end;}
     public boolean is_start(int row, int column){return row == 0 && column == 0;}
