@@ -9,12 +9,12 @@ import java.util.ArrayList;
 public class RunSearchOnMaze {
     public static void main(String[] args) {
         IMazeGenerator mg = new MyMazeGenerator();
-        for(int i = 0; i < 3; i++) {
-            Maze maze = mg.generate(50, 50);
+        for(int i = 0; i < 20; i++) {
+            Maze maze = mg.generate(10, 10);
+//            maze.print();
             SearchableMaze searchableMaze = new SearchableMaze(maze);
-            maze.print();
             solveProblem(searchableMaze, new BreadthFirstSearch());
-        solveProblem(searchableMaze,new DepthFirstSearch());
+//            solveProblem(searchableMaze,new DepthFirstSearch());
             solveProblem(searchableMaze, new BestFirstSearch());
         }
     }
@@ -24,11 +24,10 @@ public class RunSearchOnMaze {
         Solution solution = searcher.solve(domain);
         System.out.printf("'%s' algorithm - nodes evaluated: %s%n", searcher.getName(), searcher.getNumberOfNodesEvaluated());
         //Printing Solution Path
-//        System.out.println("Solution path:");
+        System.out.println("Solution path:");
         ArrayList<AState> solutionPath = solution.getSolutionPath();
-//        for (int i = 0; i < solutionPath.size(); i++) {
-//            System.out.printf("%s. %s%n", i, solutionPath.get(i));
-//        }
-        System.out.printf("Solution length: %s\n", solutionPath.size());
+        for (int i = 0; i < solutionPath.size(); i++) {
+            System.out.printf("%s. %s%n", i, solutionPath.get(i));
+        }
     }
 }

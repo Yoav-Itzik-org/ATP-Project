@@ -33,27 +33,6 @@ public class SearchableMaze implements ISearchable {
         if(up || left)
             addArray(row - 1, column - 1, successors, s,15);
         return successors;
-//        boolean up = maze.containsPath(row - 1, column);
-//        boolean down = maze.containsPath(row + 1, column);
-//        boolean right = maze.containsPath(row, column + 1);
-//        boolean left = maze.containsPath(row, column - 1);
-//        if((up || right) && maze.containsPath(row - 1, column + 1))
-//            successors.add(new MazeState(row - 1, column + 1, 15));
-//        if((down || right) && maze.containsPath(row + 1, column + 1))
-//            successors.add(new MazeState(row + 1, column + 1, 15));
-//        if((down || left) && maze.containsPath(row + 1, column - 1))
-//            successors.add(new MazeState(row + 1, column - 1, 15));
-//        if((up || left) && maze.containsPath(row - 1, column - 1))
-//            successors.add(new MazeState(row - 1, column - 1, 15));
-//        if(up)
-//            successors.add(new MazeState(row - 1, column, 10));
-//        if(right)
-//            successors.add(new MazeState(row, column + 1, 10));
-//        if(down)
-//            successors.add(new MazeState(row + 1, column, 10));
-//        if(left)
-//            successors.add(new MazeState(row, column - 1, 10));
-//        return successors;
     }
 
     public boolean addArray(int row, int column, ArrayList<AState> successors, AState s, int cost){

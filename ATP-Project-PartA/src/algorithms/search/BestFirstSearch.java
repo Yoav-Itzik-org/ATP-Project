@@ -4,7 +4,7 @@ import java.util.PriorityQueue;
 
 public class BestFirstSearch extends BreadthFirstSearch {
     public BestFirstSearch(){
-        Comparator<AState> score = (o1, o2) -> (int)(o1.getCost() - o2.getCost());
+        Comparator<AState> score = (o1, o2) -> (int)(o2.getCost() - o1.getCost());
         openList = new PriorityQueue<>(score);
     }
     public String getName(){

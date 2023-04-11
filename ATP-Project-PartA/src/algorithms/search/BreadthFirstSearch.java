@@ -23,11 +23,8 @@ public class BreadthFirstSearch extends ASearchingAlgorithm {
             ArrayList<AState> successors = domain.getAllSuccessors(current);
             for(AState successor : successors)
                 if(!openList.contains(successor) && !visited.contains(successor)) {
-                    successor.addCost(current.getCost());
-                    successor.setCameFrom(current);
                     openList.add(successor);
                 }
-            System.out.printf("Current: %s, Queue: %s\n", current, openList);
         }
         return new Solution(null);
     }
