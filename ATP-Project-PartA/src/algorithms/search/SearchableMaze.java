@@ -11,7 +11,8 @@ public class SearchableMaze implements ISearchable {
         return new MazeState(0, 0, 0);
     }
     public AState getEndState(){
-//        TO DO
+        if(maze.getRows() <= 0 || maze.getColumns() <= 0)
+            return null;
         return new MazeState(maze.getRows() - 1, maze.getColumns() - 1, 0);
     }
     public ArrayList<AState> getAllPossibleStates(AState s){
