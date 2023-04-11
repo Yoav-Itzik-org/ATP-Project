@@ -1,18 +1,24 @@
 package algorithms.search;
 
-public abstract class AState {
-    private String state;
+public abstract class AState implements Comparable<AState> {
+    final private int id;
     private double cost;
     private AState cameFrom;
-    public AState (String state, double cost, AState cameFrom){
-        this.state = state;
-        this.cost = cost;
-        this.cameFrom = cameFrom;
+    static int counter = 0;
+    public AState (){
+        this.cost = 0;
+        this.cameFrom = null;
+        this.id = counter++;
     }
     @Override
-    public boolean equals(Object other){
-        if(!(other instanceof AState))
-            return false;
-        return other == this || state.equals(((AState) other).state);
+    public int compareTo(AState other) {
+        if (other == null)
+            return id;
+        return id - other.id;
     }
+    public void setCost(double cost) {this.cost = cost;}
+    public void addCost(double cost){this.cost += cost;}
+    public double getCost() {return cost;}
+    public void setCameFrom(AState came){this.cameFrom = came;}
+    public AState getCameFrom(){return cameFrom == null ? null : this.cameFrom;}
 }

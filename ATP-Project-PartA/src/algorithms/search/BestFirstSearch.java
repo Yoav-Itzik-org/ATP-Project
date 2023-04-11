@@ -1,16 +1,13 @@
 package algorithms.search;
+import java.util.Comparator;
+import java.util.PriorityQueue;
 
-public class BestFirstSearch extends ASearchingAlgorithm {
+public class BestFirstSearch extends BreadthFirstSearch {
+    public BestFirstSearch(){
+        Comparator<AState> score = (o1, o2) -> (int)(o1.getCost() - o2.getCost());
+        openList = new PriorityQueue<>(score);
+    }
     public String getName(){
-        // TO VERIFY
-        return name;
-    }
-    public Solution solve(ISearchable domain){
-        // TO DO
-        return new Solution();
-    }
-    public int getNumberOfNodesEvaluated(){
-        // TO DO;
-        return 0;
+        return "Best First Search";
     }
 }
