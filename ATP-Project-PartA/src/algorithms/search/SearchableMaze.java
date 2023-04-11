@@ -17,22 +17,22 @@ public class SearchableMaze implements ISearchable {
     }
     public ArrayList<AState> getAllPossibleStates(AState s){
         ArrayList<AState> successors = new ArrayList<>();
-        if(s == null)
-            return successors;
-        int row = ((MazeState) s).getRow();
-        int column = ((MazeState) s).getColumn();
-        boolean up = addArray(row - 1, column , successors, s, 10);
-        boolean right = addArray(row, column + 1 , successors, s,  10);
-        boolean down = addArray(row + 1, column , successors, s, 10);
-        boolean left = addArray(row , column - 1 , successors, s,  10);
-        if(up || right)
-            addArray(row - 1, column + 1, successors, s,  10);
-        if(down || right)
-            addArray(row + 1, column + 1, successors, s,10);
-        if(down || left)
-            addArray(row + 1, column - 1, successors, s,10);
-        if(up || left)
-            addArray(row - 1, column - 1, successors, s,10);
+        if(s != null) {
+            int row = ((MazeState) s).getRow();
+            int column = ((MazeState) s).getColumn();
+            boolean up = addArray(row - 1, column, successors, s, 10);
+            boolean right = addArray(row, column + 1, successors, s, 10);
+            boolean down = addArray(row + 1, column, successors, s, 10);
+            boolean left = addArray(row, column - 1, successors, s, 10);
+            if (up || right)
+                addArray(row - 1, column + 1, successors, s, 10);
+            if (down || right)
+                addArray(row + 1, column + 1, successors, s, 10);
+            if (down || left)
+                addArray(row + 1, column - 1, successors, s, 10);
+            if (up || left)
+                addArray(row - 1, column - 1, successors, s, 10);
+        }
         return successors;
     }
 
