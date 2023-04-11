@@ -14,7 +14,7 @@ public class SearchableMaze implements ISearchable {
 //        TO DO
         return new MazeState(maze.getRows() - 1, maze.getColumns() - 1, 0);
     }
-    public ArrayList<AState> getAllSuccessors(AState s){
+    public ArrayList<AState> getAllPossibleStates(AState s){
         ArrayList<AState> successors = new ArrayList<>();
         if(s == null)
             return successors;
@@ -25,13 +25,13 @@ public class SearchableMaze implements ISearchable {
         boolean down = addArray(row + 1, column , successors, s, 10);
         boolean left = addArray(row , column - 1 , successors, s,  10);
         if(up || right)
-            addArray(row - 1, column + 1, successors, s,  15);
+            addArray(row - 1, column + 1, successors, s,  10);
         if(down || right)
-            addArray(row + 1, column + 1, successors, s,15);
+            addArray(row + 1, column + 1, successors, s,10);
         if(down || left)
-            addArray(row + 1, column - 1, successors, s,15);
+            addArray(row + 1, column - 1, successors, s,10);
         if(up || left)
-            addArray(row - 1, column - 1, successors, s,15);
+            addArray(row - 1, column - 1, successors, s,10);
         return successors;
     }
 

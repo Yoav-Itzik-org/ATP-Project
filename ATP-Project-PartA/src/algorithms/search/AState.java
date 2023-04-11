@@ -14,7 +14,7 @@ public abstract class AState implements Comparable<AState> {
     public int compareTo(AState other) {
         if (other == null)
             return id;
-        return other.id - id;
+        return -(other.id - id);
     }
     public void setCost(double cost) {this.cost = cost;}
     public void addCost(double cost){this.cost += cost;}

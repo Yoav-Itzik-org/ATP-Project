@@ -7,10 +7,7 @@ public class BreadthFirstSearch extends ASearchingAlgorithm {
     public BreadthFirstSearch(){
         openList = new PriorityQueue<>();
     }
-    public String getName(){
-        // TO VERIFY
-        return "Breadth First Search";
-    }
+    public String getName(){return "Breadth First Search";}
     public Solution solve(ISearchable domain){
         openList.add(domain.getStartState());
         ArrayList<AState> visited = new ArrayList<>();
@@ -20,7 +17,7 @@ public class BreadthFirstSearch extends ASearchingAlgorithm {
             if(current.equals(domain.getEndState())){
                 return new Solution(current);
             }
-            ArrayList<AState> successors = domain.getAllSuccessors(current);
+            ArrayList<AState> successors = domain.getAllPossibleStates(current);
             for(AState successor : successors)
                 if(!openList.contains(successor) && !visited.contains(successor)) {
                     openList.add(successor);
