@@ -1,5 +1,9 @@
 package algorithms.mazeGenerators;
 
+/**
+ * Position class
+ * A position presented by coordinates - row and column indexes
+ */
 public class Position {
     final private int row;
     final private int column;
@@ -16,6 +20,12 @@ public class Position {
     public String toString(){
         return String.format("{%d,%d}", row, column);
     }
+
+    /**
+     * Overriding equals - To position considered equal if their coordinates are the same
+     * @param other other position to compare to the current one
+     * @return if the two are equal
+     */
     @Override
     public boolean equals(Object other){
         if(!(other instanceof Position))

@@ -1,5 +1,8 @@
 package algorithms.mazeGenerators;
 
+/**
+ * Empty maze generator - create a maze with no walls
+ */
 public class EmptyMazeGenerator extends AmazeGenerator {
     @Override
     public Maze generate(int rows, int columns) {

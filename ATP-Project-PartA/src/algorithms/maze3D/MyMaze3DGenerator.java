@@ -41,12 +41,4 @@ public class MyMaze3DGenerator extends AMaze3DGenerator{
         makeRandomPaths(maze);
         return maze;
     }
-    public void makeRandomPaths(Maze3D maze){
-        Random rnd = new Random();
-        for(int d = 0; d < maze.getDepth(); d++)
-            for(int r = 0; r < maze.getRow(); r++)
-                for (int c = 0; c < maze.getColumn(); c++)
-                    if(rnd.nextBoolean())
-                        maze.setPath(d, r, c);
-    }
 }
