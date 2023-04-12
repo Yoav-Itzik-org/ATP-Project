@@ -2,7 +2,9 @@ package test;
 
 public class GeneralCheckingFunctions {
     public static String getGithubLink() {
-        String githubLink = "https://github.com/yoavzelinger/ATP-Project";
-        return githubLink;
+        return "https://github.com/yoavzelinger/ATP-Project";
+    }
+    public static boolean check3DMaze() {
+        return true;
     }
 }

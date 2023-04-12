@@ -1,2 +1,5 @@
 Part A:
-    Task C - 3D maze (Optional)
+    Task C - Maze3D:
+        SearchableMaze3D
+        Maze3DState
+        RunSearchOnMaze3D
