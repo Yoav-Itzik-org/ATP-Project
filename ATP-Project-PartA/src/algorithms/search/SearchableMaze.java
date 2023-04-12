@@ -25,13 +25,13 @@ public class SearchableMaze implements ISearchable {
             boolean down = addArray(row + 1, column, successors, s, 10);
             boolean left = addArray(row, column - 1, successors, s, 10);
             if (up || right)
-                addArray(row - 1, column + 1, successors, s, 10);
+                addArray(row - 1, column + 1, successors, s, 15);
             if (down || right)
-                addArray(row + 1, column + 1, successors, s, 10);
+                addArray(row + 1, column + 1, successors, s, 15);
             if (down || left)
-                addArray(row + 1, column - 1, successors, s, 10);
+                addArray(row + 1, column - 1, successors, s, 15);
             if (up || left)
-                addArray(row - 1, column - 1, successors, s, 10);
+                addArray(row - 1, column - 1, successors, s, 15);
         }
         return successors;
     }

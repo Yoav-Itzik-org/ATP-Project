@@ -37,6 +37,7 @@ public class MyMaze3DGenerator extends AMaze3DGenerator{
             else
                 c++;
         }
+        maze.setPath(d, r, c);
         makeRandomPaths(maze);
         return maze;
     }
