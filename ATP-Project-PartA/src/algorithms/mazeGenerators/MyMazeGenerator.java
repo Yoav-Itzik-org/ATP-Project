@@ -1,5 +1,6 @@
 package algorithms.mazeGenerators;
-import java.util.*;
+
+import java.util.Random;
 
 /**
  * MyMazeGenerator - generating a maze using Binary tree algorithm - always go in a "beneficial" direction

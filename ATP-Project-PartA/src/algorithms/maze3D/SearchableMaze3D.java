@@ -1,6 +1,8 @@
 package algorithms.maze3D;
+
 import algorithms.search.AState;
 import algorithms.search.ISearchable;
+
 import java.util.ArrayList;
 
 /**

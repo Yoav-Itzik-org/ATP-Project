@@ -1,6 +1,9 @@
 package test;
 
-import algorithms.maze3D.*;
+import algorithms.maze3D.IMazeGenerator3D;
+import algorithms.maze3D.Maze3D;
+import algorithms.maze3D.MyMaze3DGenerator;
+import algorithms.maze3D.SearchableMaze3D;
 import algorithms.search.*;
 
 import java.util.ArrayList;
