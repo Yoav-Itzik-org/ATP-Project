@@ -6,6 +6,13 @@ import java.util.Random;
  * Maze Generator abstract class
  */
 public abstract class AmazeGenerator implements IMazeGenerator {
+    /**
+     * measuring the time that takes to generate a maze
+     * by given sizes
+     * @param rows size of row
+     * @param columns size of column
+     * @return the measured time
+     * */
     @Override
     public long measureAlgorithmTimeMillis(int rows, int columns) {
         long start_time = System.currentTimeMillis();

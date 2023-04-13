@@ -68,7 +68,7 @@ public class Maze {
      * Checking if a cell contains a path
      * @param row row index
      * @param column column index
-     * @return if the cell contains an index
+     * @return if the cell contains a path
      */
     public boolean containsPath(int row, int column) {
         if(!isValidPosition(row, column) || array == null)   // if the spot is valid and the maze is has been initialized
