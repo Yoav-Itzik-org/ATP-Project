@@ -8,8 +8,8 @@ public class BreadthFirstSearch extends ASearchingAlgorithm {
         openList = new PriorityQueue<>();
     }
     public String getName(){return "Breadth First Search";}
-
     public Solution solve(ISearchable domain){
+        resetVisited();
         if(domain != null && domain.getEndState() != null) {
             openList.add(domain.getStartState());
             ArrayList<AState> visited = new ArrayList<>();

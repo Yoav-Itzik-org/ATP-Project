@@ -10,6 +10,7 @@ public class DepthFirstSearch extends ASearchingAlgorithm{
     }
     public String getName(){return "Depth First Search";}
     public Solution solve(ISearchable domain){
+        resetVisited();
         if(domain != null && domain.getEndState() != null) {
             openList.add(domain.getStartState());
             ArrayList<AState> visited = new ArrayList<>();
