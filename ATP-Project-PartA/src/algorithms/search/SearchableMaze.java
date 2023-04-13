@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * The class only has one attribute to holds the relevant maze
  */
 public class SearchableMaze implements ISearchable {
-    Maze maze;
+    private final Maze maze;
     public SearchableMaze(Maze maze){
 
         this.maze = maze;
@@ -61,7 +61,7 @@ public class SearchableMaze implements ISearchable {
      * @param cost the cost that the movement between the cells cost
      * @return if the cell added tot the array
      */
-    public boolean addArray(int row, int column, ArrayList<AState> successors, AState s, int cost){
+    private boolean addArray(int row, int column, ArrayList<AState> successors, AState s, int cost){
         if (!maze.containsPath(row, column))
             return false;
         AState newState = new MazeState(row, column, cost);

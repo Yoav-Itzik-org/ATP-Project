@@ -15,12 +15,13 @@ public abstract class ASearchingAlgorithm implements ISearchingAlgorithm{
     public int getNumberOfNodesEvaluated() {
         return visitedNodes;
     }
-    public AState popOpenList() {
+    protected AState popOpenList() {
         if(openList.isEmpty())
             return null;
         visitedNodes++; // because a node was extracted it can be added to the counter of the visited ones
         return openList.poll();
     }
+
     /**
      * A searching algorithm needs a method to reset the number of evaluated nodes before every search
      */

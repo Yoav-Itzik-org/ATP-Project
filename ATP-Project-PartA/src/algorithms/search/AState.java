@@ -10,7 +10,7 @@ public abstract class AState implements Comparable<AState> {
     final private int id;
     private double cost;
     private AState cameFrom;
-    static int counter = 0;
+    private static int counter = 0;
     public AState (){
         this.cost = 0;
         this.cameFrom = null;

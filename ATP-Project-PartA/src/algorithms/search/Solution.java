@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * a solution hold a path of states which are connected with cells of paths
  */
 public class Solution {
-    ArrayList<AState> nodes;
+    private final ArrayList<AState> nodes;
 
     /**
      * Get a state and start getting its ancestors to create a full path to it from the start
