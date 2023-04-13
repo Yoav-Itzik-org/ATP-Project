@@ -13,9 +13,9 @@ public class Position3D {
         this.row = row;
         this.column = column;
     }
-    public int getDepthIndex(){return this.depth;}
-    public int getRowIndex(){return this.row;}
-    public int getColumnIndex(){return this.column;}
+    protected int getDepthIndex(){return this.depth;}
+    protected int getRowIndex(){return this.row;}
+    protected int getColumnIndex(){return this.column;}
     public String toString(){
         return String.format("{%d,%d,%d}",depth, row, column);
     }

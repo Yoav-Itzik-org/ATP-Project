@@ -33,7 +33,7 @@ public class Maze {
      * @param column column index
      * @return if the indexes are in range
      */
-    public boolean isValidPosition(int row, int column){
+    private boolean isValidPosition(int row, int column){
         return !(!(0 <= row && row < rows) || !( 0 <= column && column < columns));
     }
 
@@ -42,7 +42,7 @@ public class Maze {
      * @param row row index
      * @param column column index
      */
-    public void setPath(int row, int column){
+    protected void setPath(int row, int column){
         if(isValidPosition(row, column) && array != null)   // if the spot is valid and the maze is has been initialized
             array[row][column] = 0;
     }
@@ -51,7 +51,7 @@ public class Maze {
      * @param row row index
      * @param column column index
      */
-    public void setWall(int row, int column){
+    protected void setWall(int row, int column){
         if(isValidPosition(row, column) && array != null)   // if the spot is valid and the maze is has been initialized
             array[row][column] = 1;
     }
@@ -61,8 +61,8 @@ public class Maze {
     public int getColumns(){return columns;}
 
     // Checking if an indexes represent an important spot in the maze
-    public boolean is_start(int row, int column){return start != null && row == 0 && column == 0;} // If the maze is empty every position isn't considered start
-    public boolean is_end(int row, int column){ return end == null || (row == rows - 1 && column == columns - 1);} // If the maze is empty every position considered end
+    protected boolean is_start(int row, int column){return start != null && row == 0 && column == 0;} // If the maze is empty every position isn't considered start
+    protected boolean is_end(int row, int column){ return end == null || (row == rows - 1 && column == columns - 1);} // If the maze is empty every position considered end
 
     /**
      * Checking if a cell contains a path

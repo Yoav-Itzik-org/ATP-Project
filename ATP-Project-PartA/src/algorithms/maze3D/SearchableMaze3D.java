@@ -55,9 +55,8 @@ public class SearchableMaze3D implements ISearchable{
      * @param successors list of all current found successors
      * @param s current state
      * @param cost the cost that the movement between the cells cost
-     * @return if the cell added tot the array
      */
-    public void addArray(int depth, int row, int column, ArrayList<AState> successors, AState s, int cost){
+    private void addArray(int depth, int row, int column, ArrayList<AState> successors, AState s, int cost){
         if (maze.containsPath(depth, row, column)){
             AState current = new Maze3DState(depth, row, column, cost);
             current.setCameFrom(s);

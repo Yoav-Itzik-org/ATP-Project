@@ -36,7 +36,7 @@ public class Maze3D {
      * @param column column index
      * @return if the indexes are in range
      */
-    public boolean isValidPosition(int depth, int row, int column){
+    private boolean isValidPosition(int depth, int row, int column){
         return !(!(0 <= row && row < this.row) || !( 0 <= column && column < this.column) || !( 0 <= depth && depth < this.depth));
     }
     /**
@@ -45,7 +45,7 @@ public class Maze3D {
      * @param row row index
      * @param column column index
      */
-    public void setPath(int depth, int row, int column){
+    protected void setPath(int depth, int row, int column){
         if(isValidPosition(depth, row, column) && array != null)
             array[depth][row][column] = 0;
     }
@@ -55,7 +55,7 @@ public class Maze3D {
      * @param row row index
      * @param column column index
      */
-    public void setWall(int depth, int row, int column){
+    protected void setWall(int depth, int row, int column){
         if(isValidPosition(depth, row, column) && array != null)
             array[depth][row][column] = 1;
     }
@@ -66,8 +66,8 @@ public class Maze3D {
      * @param column column index
      * @return if the indexes is start/end state
      */
-    public boolean is_start(int depth, int row, int column){return start != null && depth == 0 && row == 0 && column == 0;}
-    public boolean is_end(int depth, int row, int column){ return end == null || (depth == 0 && row == this.row - 1 && column == this.column - 1);}
+    protected boolean is_start(int depth, int row, int column){return start != null && depth == 0 && row == 0 && column == 0;}
+    protected boolean is_end(int depth, int row, int column){ return end == null || (depth == 0 && row == this.row - 1 && column == this.column - 1);}
     /**
      * Checking if a cell contains a path
      * @param depth depth index

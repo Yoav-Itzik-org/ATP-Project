@@ -21,9 +21,9 @@ public class Maze3DState extends AState {
         return other == this || (((Maze3DState)other).getRow() == getRow() && ((Maze3DState)other).getColumn() == getColumn()
                 && ((Maze3DState)other).getDepth() == getDepth());
     }
-    public int getDepth() {return position.getDepthIndex();}
-    public int getRow() {return position.getRowIndex();}
-    public int getColumn() {return position.getColumnIndex();}
+    protected int getDepth() {return position.getDepthIndex();}
+    protected int getRow() {return position.getRowIndex();}
+    protected int getColumn() {return position.getColumnIndex();}
     public String toString(){
         return position.toString();
     }

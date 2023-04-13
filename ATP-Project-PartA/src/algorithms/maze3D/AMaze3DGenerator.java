@@ -25,7 +25,7 @@ public abstract class AMaze3DGenerator implements IMazeGenerator3D {
      * add some random paths in a given 3D maze
      * @param maze a 3D maze to add walls to
      */
-    public void makeRandomPaths(Maze3D maze){
+    protected void makeRandomPaths(Maze3D maze){
         Random rnd = new Random();
         for(int d = 0; d < maze.getDepth(); d++)
             for(int r = 0; r < maze.getRow(); r++)

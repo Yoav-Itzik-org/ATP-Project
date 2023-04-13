@@ -1,5 +1,4 @@
 package algorithms.mazeGenerators;
-
 import java.util.Random;
 
 /**
@@ -25,7 +24,7 @@ public abstract class AmazeGenerator implements IMazeGenerator {
      * add some random paths in a given maze
      * @param maze a maze to add walls to
      */
-    public void makeRandomPaths(Maze maze){
+    protected void makeRandomPaths(Maze maze){
         Random rnd = new Random();
         for(int row = 0; row < maze.getRows(); row++)
             for(int column = 0; column < maze.getColumns(); column++)
