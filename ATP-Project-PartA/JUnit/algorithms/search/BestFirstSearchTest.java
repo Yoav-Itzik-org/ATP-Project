@@ -1,5 +1,7 @@
 package algorithms.search;
 import static org.junit.jupiter.api.Assertions.*;
+
+import algorithms.maze3D.*;
 import algorithms.mazeGenerators.Maze;
 import org.junit.jupiter.api.*;
 
@@ -37,7 +39,7 @@ class BestFirstSearchTest {
      * checking cases of solving a maze with Best First Search algorithm
      */
     @Test
-    void solve(){
+    void solve2D() {
         BestFirstSearch best = new BestFirstSearch();
         assertEquals(best.solve(null).getSolutionPath().size(), 0);// checking if there is no path of solution by given a null maze
         assertEquals(best.getNumberOfNodesEvaluated(), 0);
