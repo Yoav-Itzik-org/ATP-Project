@@ -5,7 +5,9 @@ import java.util.ArrayList;
 
 /**
  * SearchableMaze3D
- * making an adaptation of a maze for solving him by searching a path */
+ * implement ISearchable and used for be able to searching on a 3Dmaze
+ * The class only has one attribute to holds the relevant maze
+ */
 
 public class SearchableMaze3D implements ISearchable{
     Maze3D maze;
@@ -21,9 +23,12 @@ public class SearchableMaze3D implements ISearchable{
         return new Maze3DState(0,maze.getRow() - 1, maze.getColumn() - 1, 0);
     }
     /**
-     * returning all the possible neighbors of a specific state
-     * @param s specific state of a maze
-     * @return all the valid neighbors*/
+     * Getting all neighbor of a current state
+     * In a 3D maze a state's neighbors considered all the surrounding positions (in straight lines)
+     * ALl the neighbors has 10 cost
+     * @param s a state to search its neighbors
+     * @return list of all the neighbors
+     */
     public ArrayList<AState> getAllPossibleStates(AState s){
         ArrayList<AState> successors = new ArrayList<>();
         if(s != null) {
@@ -41,7 +46,15 @@ public class SearchableMaze3D implements ISearchable{
         return successors;
     }
     /**
-     * adding to a list all the valid neighbor cells that valid to a current state*/
+     * Add a position to an array of neighbors if it contains valid path
+     * @param depth depth index
+     * @param row row index
+     * @param column column index
+     * @param successors list of all current found successors
+     * @param s current state
+     * @param cost the cost that the movement between the cells cost
+     * @return if the cell added tot the array
+     */
     public void addArray(int depth, int row, int column, ArrayList<AState> successors, AState s, int cost){
         if (maze.containsPath(depth, row, column)){
             AState current = new Maze3DState(depth, row, column, cost);
