@@ -35,7 +35,7 @@ public abstract class AState implements Comparable<AState> {
      * Add a cost to the current cost (instead of replacing it)
      * @param cost the cost to add
      */
-    public void addCost(double cost){this.cost += cost;}
+    public void addCost(double cost){setCost(this.cost + cost);}
     public double getCost() {return cost;}
     public void setCameFrom(AState came){this.cameFrom = came;}
     public AState getCameFrom(){return cameFrom == null ? null : this.cameFrom;}

@@ -22,11 +22,7 @@ public class MazeState extends AState{
      */
     @Override
     public boolean equals(Object other){
-        if(!(other instanceof MazeState))
-            return false;
-        return other == this || position.equals(((MazeState) other).position);
+        return other instanceof MazeState && (other == this || position.equals(((MazeState) other).position));
     }
-    public String toString(){
-        return position.toString();
-    }
+    public String toString(){return position.toString();}
 }
