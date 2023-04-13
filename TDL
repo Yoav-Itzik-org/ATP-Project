@@ -1,2 +1,6 @@
 Part A:
-    Docstring
+    Docstring:
+        Maze3D package
+        All the searching algorithms (BFS, DFS, BEST)
+        Test package?
+    Access Modifiers
