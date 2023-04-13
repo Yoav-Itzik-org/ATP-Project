@@ -4,7 +4,7 @@ import java.util.Random;
 /**
  * Maze Generator abstract class
  */
-public abstract class AmazeGenerator implements IMazeGenerator {
+public abstract class AMazeGenerator implements IMazeGenerator {
     /**
      * measuring the time that takes to generate a maze
      * by given sizes

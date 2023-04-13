@@ -5,7 +5,7 @@ import java.util.Random;
 /**
  * MyMazeGenerator - generating a maze using Binary tree algorithm - always go in a "beneficial" direction
  */
-public class MyMazeGenerator extends AmazeGenerator {
+public class MyMazeGenerator extends AMazeGenerator {
     @Override
     public Maze generate(int rows, int columns) {
         Maze maze = new Maze(rows, columns);

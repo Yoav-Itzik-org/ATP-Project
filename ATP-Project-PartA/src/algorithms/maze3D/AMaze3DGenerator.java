@@ -4,7 +4,7 @@ import java.util.Random;
 /**
  * 3D Maze Generator abstract class
  */
-public abstract class AMaze3DGenerator implements IMazeGenerator3D {
+public abstract class AMaze3DGenerator implements IMaze3DGenerator {
 
     /**
      * measuring the time that takes to generate a 3D maze

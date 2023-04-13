@@ -4,7 +4,7 @@ import java.util.Random;
 /**
  * SimpleMazeGenerator - Creating a maze with random path
  */
-public class SimpleMazeGenerator extends AmazeGenerator {
+public class SimpleMazeGenerator extends AMazeGenerator {
     @Override
     public Maze generate(int rows, int columns) {
         Maze maze = new Maze(rows, columns);

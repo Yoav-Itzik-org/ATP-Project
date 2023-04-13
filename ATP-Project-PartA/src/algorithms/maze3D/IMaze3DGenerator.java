@@ -2,7 +2,7 @@ package algorithms.maze3D;
 /**
  * 3D Maze Generator interface - authorize that the generators will generate a 3D maze and will be able to measure the time doing so
  */
-public interface IMazeGenerator3D {
+public interface IMaze3DGenerator {
     /**
      * Generating a 3D maze in a given dimensions
      * @param depth amount of depths
