@@ -7,14 +7,14 @@ import java.util.Random;
 public class SimpleMazeGenerator extends AmazeGenerator {
     @Override
     public Maze generate(int rows, int columns) {
-        Random rnd = new Random();
         Maze maze = new Maze(rows, columns);
+        Random rnd = new Random();
         int column_path = 0; // Make the exception path zero first to ensure that the start contains a path
         for (int row = 0; row < rows; row++) {
             if (rnd.nextBoolean()) // Choose the make wall row
                  setWallRow(maze, row, column_path);
             else
-                column_path = rnd.nextInt(maze.getColumns()); // Change the column index path
+                column_path = ((columns != 0 ) ? rnd.nextInt(maze.getColumns()) : 0); // Change the column index path
         }
         setHorizontalPath(maze, maze.getRows() - 1, column_path); // Add path from the column index path to the end position (at the last row)
         makeRandomPaths(maze);
