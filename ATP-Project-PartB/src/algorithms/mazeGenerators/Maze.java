@@ -94,4 +94,12 @@ public class Maze {
             System.out.println();
         }
     }
+    public Maze(byte[] bytes){
+        //TODO - Implement
+    }
+    public byte[] toByteArray(){
+        //TODO - Implement
+        byte[] byteArray = new byte[0];
+        return byteArray;
+    }
 }
