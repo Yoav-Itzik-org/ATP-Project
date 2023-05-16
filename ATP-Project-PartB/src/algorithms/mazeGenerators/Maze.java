@@ -121,8 +121,17 @@ public class Maze {
         return result;
     }
     public byte[] toByteArray(){
-        //TODO - Implement
-        byte[] byteArray = new byte[0];
+        if(array == null)
+            return null;
+        final int mazeSettingCount = 8;
+        byte[] byteArray = new byte[columns * rows + mazeSettingCount];
+        byte[][] dimensionsArray = new byte[][]{separateIntegerToBytes(rows), separateIntegerToBytes(columns)};
+        for(int dimensionIndex = 0; dimensionIndex < 2; dimensionIndex++)
+            System.arraycopy(dimensionsArray[dimensionIndex], 0, byteArray, dimensionIndex * 4, 4);
+        int byteArrayIndex = 8;
+        for(int row = 0; row < rows; row++)
+            for(int column = 0; column < columns; column++)
+                byteArray[byteArrayIndex++] = (byte) array[row][column];
         return byteArray;
     }
     public byte[] separateIntegerToBytes(int num){
