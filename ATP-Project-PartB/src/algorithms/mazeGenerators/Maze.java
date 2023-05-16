@@ -94,12 +94,73 @@ public class Maze {
             System.out.println();
         }
     }
-    public Maze(byte[] bytes){
-        //TODO - Implement
+    public Maze(byte[] bytes) {
+        if (bytes == null) {
+            this.array = null;
+            this.rows = -1;
+            this.columns = -1;
+            this.start = null;
+            this.end = null;
+        }
+        else {
+            rows = byteArrayToInteger(bytes, 0);
+            columns = byteArrayToInteger(bytes, 4);
+            array = new int[rows][columns];
+            int byteArrayIndex = 8;
+            for (int row = 0; row < rows; row++)
+                for (int coulmn = 0; coulmn < columns; coulmn++)
+                    array[row][coulmn] = bytes[byteArrayIndex++];
+            this.start = new Position(0, 0);
+            this.end = new Position(rows - 1, columns - 1);
+        }
+    }
+    public int byteArrayToInteger(byte[] bytes, int offsetIndex){
+        int result = 0;
+        for (int byteIndex = 0; byteIndex < 4; byteIndex++)
+            result += binaryToDecimal(decimalToBinary(bytes[byteIndex + offsetIndex]), byteIndex);
+        return result;
     }
     public byte[] toByteArray(){
         //TODO - Implement
         byte[] byteArray = new byte[0];
         return byteArray;
+    }
+    public byte[] separateIntegerToBytes(int num){
+        byte[] byteArray = new byte[4];
+        byte[] binaryNum = decimalToBinary(num);
+        for(int offsetCount = 0; offsetCount < 4; offsetCount++)
+            byteArray[offsetCount] = binaryToByte(binaryNum, offsetCount * 8);
+        return byteArray;
+    }
+    public byte[] decimalToBinary(int num){
+        byte[] binaryArray = new byte[32];
+        for (int i = 0; i < 31 ; i++){
+            binaryArray[i] =(byte)(num % 2);
+            num /= 2;
+        }
+        return binaryArray;
+    }
+    public byte binaryToByte(byte[] bitArray, int offsetIndex){
+        byte result = 0;
+        for(int bitIndex = 0; bitIndex < 8; bitIndex++)
+            result += bitArray[offsetIndex + bitIndex] * Math.pow(2, bitIndex);
+        return result;
+    }
+    public int binaryToDecimal(byte[] bitArray, int byteOffset){
+        int result = 0;
+        for(int bitIndex = 0; bitIndex < 8; bitIndex++)
+            result += bitArray[bitIndex] * Math.pow(2, bitIndex + 8 * byteOffset);
+        return result;
+    }
+    public boolean equals(Maze other){
+        if(other == null)
+            return false;
+        if(rows != other.getRows() || columns != other.getColumns())
+            return false;
+        for (int row = 0; row < rows; row++)
+            for (int column = 0; column < columns; column++)
+                if(containsPath(row, column) != other.containsPath(row, column))
+                    return false;
+        return true;
     }
 }
