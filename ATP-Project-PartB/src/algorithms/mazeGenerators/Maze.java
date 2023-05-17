@@ -1,6 +1,5 @@
 package algorithms.mazeGenerators;
 
-import java.util.Arrays;
 
 /**
  * Maze class
@@ -119,8 +118,6 @@ public class Maze {
         else {
             rows = byteDimensionToInteger(bytes, 0);
             columns = byteDimensionToInteger(bytes, 4);
-            System.out.println(Arrays.toString(Arrays.copyOfRange(bytes, 0, 8)));
-            System.out.printf("Columns: %d\n", columns);
             array = new int[rows][columns];
             int byteArrayIndex = 8;
             for (int row = 0; row < rows; row++)
@@ -140,22 +137,12 @@ public class Maze {
         return result;
     }
     public void fillBinaryArray(byte[] binaryArray, int byteOffset, int num){
-        System.out.println(num);
         num = num & 0xff;
         for(int bitOffest = 0; bitOffest < 8; bitOffest++) {
             binaryArray[byteOffset + bitOffest] = (byte) (num % 2);
             num /= 2;
         }
     }
-//    public int byteArrayToInteger(byte[] bytes, int offsetIndex){
-//        int result = 0;
-//        for (int byteIndex = 0; byteIndex < 4; byteIndex++) {
-//            byte[] binaryArray = decimalToBinary(bytes[byteIndex + offsetIndex]);
-//            System.out.println(Arrays.toString(binaryArray));
-//            result +=  binaryToDecimal(binaryArray, byteIndex);
-//        }
-//        return result;
-//    }
     public byte[] toByteArray(){
         if(array == null)
             return null;
@@ -193,14 +180,4 @@ public class Maze {
             result += bitArray[offsetIndex + bitIndex] * Math.pow(2, bitIndex);
         return result;
     }
-//    public int binaryToDecimal(byte[] bitArray, int byteOffset){
-//        int result = 0;
-//        for(int bitIndex = 0; bitIndex < 8; bitIndex++)
-//        {
-//            int bitValue = (int) (((int)bitArray[bitIndex]) * Math.pow(2, bitIndex + 8 * byteOffset));
-//            System.out.println(bitValue);
-//            result += bitValue;
-//        }
-//        return result;
-//    }
 }

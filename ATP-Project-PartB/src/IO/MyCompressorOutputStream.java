@@ -2,26 +2,22 @@ package IO;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
-
 public class MyCompressorOutputStream extends OutputStream {
     OutputStream out;
     public MyCompressorOutputStream(OutputStream out){
         this.out = out;
     }
-    public void write(int b) throws IOException{
-//        System.out.println(b);
-        out.write(b);
-    }
+    public void write(int b) throws IOException{out.write(b);}
     public void write(byte[ ]b) throws IOException {
         for (int bOffset = 0; bOffset < 8; bOffset++)
             out.write(b[bOffset]);
         ArrayList<Byte> bytesList = new ArrayList<>();
-        int lastByteSize = b.length % 8; //how much 0 we added
+        int lastByteSize = b.length % 8; // Length of the last bytes without zeros added
         for (int byteIndex = 1; byteIndex < (b.length + 7) / 8; byteIndex++) {
             byte currentByte = 0;
-            int byteLength = byteIndex + 1 < (b.length + 7) / 8 ? 8 : 8 - lastByteSize;
+            int byteLength = byteIndex + 1 < (b.length + 7) / 8 || lastByteSize == 0 ? 8 : lastByteSize;
             for (int bitOffset = 0; bitOffset < byteLength; bitOffset++)
-                currentByte += b[8 * byteIndex + bitOffset] * Math.pow(2, byteLength-bitOffset-1);
+                currentByte += b[8 * byteIndex + bitOffset] * Math.pow(2, bitOffset);
             bytesList.add(currentByte);
         }
         int sequenceLength = 0;
@@ -35,7 +31,6 @@ public class MyCompressorOutputStream extends OutputStream {
                 sequenceLength++;
         }
         splitAndWrite(sequenceLength, previousByte);
-//        System.out.println("ENDED COMPRESS\n");
     }
     public void splitAndWrite(int amount, byte currentByte)throws IOException{
         while (amount > 255){

@@ -17,15 +17,16 @@ public class MyDecompressorInputStream extends InputStream {
             b[bIndex] = (byte) in.read();
         int rows = bytesToInteger(new byte[]{b[0], b[1], b[2], b[3]});
         int columns = bytesToInteger(new byte[]{b[4], b[5], b[6], b[7]});
-        int zeroAdds = rows * columns % 8;
-//        System.out.println(in.available());
+        int lastByteSize = rows * columns % 8;
+        lastByteSize = lastByteSize == 0 ? 8 : lastByteSize;
         while (in.available() > 0) {
-            int length = in.available() > 2 ? 8 : 8 - zeroAdds;
             byte currentByte = (byte) in.read();
             byte sequenceLength = (byte) in.read();
             while (sequenceLength-- > 0) {
+                int length = in.available() == 0 && sequenceLength == 0 ? lastByteSize : 8;
+//                System.out.printf("Byte: %d, index: %d, length: %d\n", currentByte & 0xff, bIndex, length);
                 if(bIndex + length > b.length) {
-//                    System.out.println("HERERERERE");
+                    System.out.println("HERERERERE");
                     return -1;
                 }
                 insertByte(b, currentByte, bIndex, length);
@@ -35,12 +36,10 @@ public class MyDecompressorInputStream extends InputStream {
         return b.length;
     }
     public void insertByte(byte[] b, byte currentByte, int bIndex, int length){
-        int currentNum;
-        currentNum = (int) currentByte < 0 ? 256 + (int) currentByte :  (int) currentByte;
-//        System.out.printf("Byte: %d, index: %d, length: %d\n", currentByte, bIndex, length);
-        for (int bitOffset = length-1; bitOffset >= 0; bitOffset--){
-            b[bIndex + bitOffset] = (byte) (currentNum % 2);
-            currentNum = (byte) (currentNum / 2);
+        int unsignedByte = currentByte & 0xff;
+        for (int bitOffset = 0; bitOffset < length; bitOffset++){
+            b[bIndex + bitOffset] = (byte) (unsignedByte % 2);
+            unsignedByte = unsignedByte / 2;
         }
     }
     public int bytesToInteger(byte[] bytes){
