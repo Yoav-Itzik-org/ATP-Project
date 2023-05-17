@@ -4,9 +4,7 @@ import java.io.OutputStream;
 
 public class SimpleCompressorOutputStream extends OutputStream {
     OutputStream out;
-    public SimpleCompressorOutputStream(OutputStream out){
-        this.out = out;
-    }
+    public SimpleCompressorOutputStream(OutputStream out){this.out = out;}
     public void write(int b) throws IOException{out.write(b);}
     public void write(byte[] b)throws IOException{
         if(b == null)

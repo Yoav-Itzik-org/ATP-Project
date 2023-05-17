@@ -20,16 +20,16 @@ public class SimpleDecompressorInputStream extends InputStream {
             return -1;
         while (in.available() > 0){
             byte currentByte = (byte) in.read();
-            byte sequenceLength = (byte) in.read();
-            if(bIndex + sequenceLength >= b.length)
+            int sequenceLength = in.read() & 0xff;
+            if(bIndex + sequenceLength > b.length)
                 return -1;
             insertSequence(b, bIndex, sequenceLength, currentByte);
             bIndex += sequenceLength;
         }
         return 1;
     }
-    public void insertSequence(byte[] b, int offsetIndex, byte sequenceLength, byte currentByte){
+    public void insertSequence(byte[] b, int offsetIndex, int sequenceLength, byte currentByte){
         for (int bIndex = 0; bIndex < sequenceLength; bIndex++)
-            b[offsetIndex + bIndex] = currentByte;
+            b[bIndex + offsetIndex] = currentByte;
     }
 }
