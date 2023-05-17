@@ -21,14 +21,11 @@ public class MyDecompressorInputStream extends InputStream {
         lastByteSize = lastByteSize == 0 ? 8 : lastByteSize;
         while (in.available() > 0) {
             byte currentByte = (byte) in.read();
-            byte sequenceLength = (byte) in.read();
+            int sequenceLength = in.read();
             while (sequenceLength-- > 0) {
                 int length = in.available() == 0 && sequenceLength == 0 ? lastByteSize : 8;
-//                System.out.printf("Byte: %d, index: %d, length: %d\n", currentByte & 0xff, bIndex, length);
-                if(bIndex + length > b.length) {
-                    System.out.println("HERERERERE");
+                if(bIndex + length > b.length)
                     return -1;
-                }
                 insertByte(b, currentByte, bIndex, length);
                 bIndex += length;
             }
@@ -43,11 +40,13 @@ public class MyDecompressorInputStream extends InputStream {
         }
     }
     public int bytesToInteger(byte[] bytes){
-        int result = bytes[0];
-        for(int byteIndex = 1; byteIndex < 4; byteIndex++) {
-            int currentByte = bytes[byteIndex];
-            for (int bitOffset = 0; bitOffset < 8; bitOffset++)
+        int result = 0;
+        for(int byteIndex = 0; byteIndex < 4; byteIndex++) {
+            int currentByte = bytes[byteIndex] & 0xff;
+            for (int bitOffset = 0; bitOffset < 8; bitOffset++) {
                 result += (currentByte % 2) * Math.pow(2, byteIndex * 8 + bitOffset);
+                currentByte /= 2;
+            }
         }
         return result;
     }
