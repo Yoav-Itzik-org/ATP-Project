@@ -18,14 +18,14 @@ public class MyDecompressorInputStream extends InputStream {
         int rows = bytesToInteger(new byte[]{b[0], b[1], b[2], b[3]});
         int columns = bytesToInteger(new byte[]{b[4], b[5], b[6], b[7]});
         int zeroAdds = rows * columns % 8;
-        System.out.println(in.available());
+//        System.out.println(in.available());
         while (in.available() > 0) {
             int length = in.available() > 2 ? 8 : 8 - zeroAdds;
             byte currentByte = (byte) in.read();
             byte sequenceLength = (byte) in.read();
             while (sequenceLength-- > 0) {
                 if(bIndex + length > b.length) {
-                    System.out.println("HERERERERE");
+//                    System.out.println("HERERERERE");
                     return -1;
                 }
                 insertByte(b, currentByte, bIndex, length);
@@ -35,10 +35,12 @@ public class MyDecompressorInputStream extends InputStream {
         return b.length;
     }
     public void insertByte(byte[] b, byte currentByte, int bIndex, int length){
-        System.out.printf("Byte: %d, index: %d, length: %d\n", currentByte, bIndex, length);
-        for (int bitOffset = 0; bitOffset < length; bitOffset++){
-            b[bIndex + bitOffset] = (byte) (currentByte % 2);
-            currentByte = (byte) (currentByte / 2);
+        int currentNum;
+        currentNum = (int) currentByte < 0 ? 256 + (int) currentByte :  (int) currentByte;
+//        System.out.printf("Byte: %d, index: %d, length: %d\n", currentByte, bIndex, length);
+        for (int bitOffset = length-1; bitOffset >= 0; bitOffset--){
+            b[bIndex + bitOffset] = (byte) (currentNum % 2);
+            currentNum = (byte) (currentNum / 2);
         }
     }
     public int bytesToInteger(byte[] bytes){
