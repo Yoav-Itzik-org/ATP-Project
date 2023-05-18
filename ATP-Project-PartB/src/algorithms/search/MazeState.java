@@ -9,7 +9,7 @@ import java.io.Serializable;
  * The maze state adds a position attribute to represent the state's location in the maze
  */
 public class MazeState extends AState implements Serializable {
-    final private Position position;
+    private Position position;
     public MazeState(int row, int column, double cost){
         position = new Position(row, column);
         setCost(cost);

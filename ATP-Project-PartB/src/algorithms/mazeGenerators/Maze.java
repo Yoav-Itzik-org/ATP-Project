@@ -97,14 +97,16 @@ public class Maze implements Serializable {
             System.out.println();
         }
     }
-    public boolean equals(Maze other){
-        if(other == null)
+    @Override
+    public boolean equals(Object other){
+        if(other == null || other.getClass() != this.getClass())
             return false;
-        if(rows != other.getRows() || columns != other.getColumns())
+        Maze otherMaze = (Maze) other;
+        if(rows != otherMaze.getRows() || columns != otherMaze.getColumns())
             return false;
         for (int row = 0; row < rows; row++)
             for (int column = 0; column < columns; column++)
-                if(containsPath(row, column) != other.containsPath(row, column))
+                if(containsPath(row, column) != otherMaze.containsPath(row, column))
                     return false;
         return true;
     }
