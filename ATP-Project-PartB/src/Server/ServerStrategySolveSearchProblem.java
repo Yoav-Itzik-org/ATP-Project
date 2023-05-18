@@ -6,6 +6,7 @@ import algorithms.search.SearchableMaze;
 import algorithms.search.Solution;
 
 import java.io.*;
+import java.util.ArrayList;
 
 public class ServerStrategySolveSearchProblem implements IServerStrategy{
     ArrayList<Maze> solvedMazes;
