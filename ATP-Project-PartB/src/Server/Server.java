@@ -53,5 +53,7 @@ public class Server {
     }
     public void stop(){
         stop = true;
+        if (strategy instanceof ServerStrategySolveSearchProblem)
+            ((ServerStrategySolveSearchProblem) strategy).deleteFile();
     }
 }
