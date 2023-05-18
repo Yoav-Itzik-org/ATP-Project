@@ -3,7 +3,6 @@ package Server;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.net.SocketTimeoutException;
 
 public class Server {
     private final int port;
@@ -19,21 +18,29 @@ public class Server {
         try {
             ServerSocket serverSocket = new ServerSocket(port);
             serverSocket.setSoTimeout(listeningIntervalMS);
-//            System.out.println(String.format("Server started! (port: %s)", port));
-            while (!stop){
+            new Thread(() -> {
                 try {
-                    Socket client = serverSocket.accept();
-                    new Thread(() -> clientHandle(client)).start();
+                    waitForClientRespond(serverSocket);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
                 }
-                catch (SocketTimeoutException e){
-//                    e.printStackTrace();
-                }
-            }
-            serverSocket.close();
+            }).start();
         }
         catch (IOException e){
             e.printStackTrace();
         }
+    }
+    private void waitForClientRespond(ServerSocket serverSocket) throws IOException {
+        while (!stop){
+            try {
+                Socket client = serverSocket.accept();
+                new Thread(() -> clientHandle(client)).start();
+            }
+            catch (IOException ignored){
+
+            }
+        }
+        serverSocket.close();
     }
     private void clientHandle(Socket clientSocket){
         try {

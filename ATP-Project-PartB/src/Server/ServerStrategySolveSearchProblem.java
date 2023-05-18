@@ -18,7 +18,6 @@ public class ServerStrategySolveSearchProblem implements IServerStrategy{
             toClient.writeObject(solution);
             toClient.flush();
             fromClient.close();
-            toClient.close();
         }
         catch (ClassNotFoundException e){
             e.printStackTrace();
