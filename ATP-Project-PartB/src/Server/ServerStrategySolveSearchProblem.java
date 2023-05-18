@@ -10,9 +10,10 @@ import java.util.ArrayList;
 
 public class ServerStrategySolveSearchProblem implements IServerStrategy{
     ArrayList<Maze> solvedMazes;
+    String tempDirectoryPath = System.getProperty("java.io.tmpdir") + "Solutions.txt";
     public ServerStrategySolveSearchProblem(){solvedMazes = new ArrayList<>();}
     public void serverStrategy(InputStream in, OutputStream out)throws IOException {
-        String tempDirectoryPath = System.getProperty("java.io.tmpdir");
+
         ObjectInputStream fromClient; ObjectOutputStream toClient; Maze maze; Solution solution;
         try {
             fromClient = new ObjectInputStream(in);
@@ -46,5 +47,9 @@ public class ServerStrategySolveSearchProblem implements IServerStrategy{
         toClient.writeObject(solution);
         toClient.flush();
         fromClient.close();
+    }
+    public void deleteFile(){
+        File file = new File(tempDirectoryPath);
+        file.delete();
     }
 }
