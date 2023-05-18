@@ -1,13 +1,15 @@
 package algorithms.mazeGenerators;
 
 
+import java.io.Serializable;
+
 /**
  * Maze class
  * A maze presented by a two dimensions array (dimensions given at the constructor)
  * in the array a cell with 0 represent a path and 1 a wall
  * A maze also has starting and ending position - by default they are top left and bottom right
  */
-public class Maze {
+public class Maze implements Serializable {
     final private int[][] array;
     final private int rows;
     final private int columns;

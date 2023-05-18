@@ -1,11 +1,12 @@
 package algorithms.search;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Solution object
  * a solution hold a path of states which are connected with cells of paths
  */
-public class Solution {
+public class Solution implements Serializable {
     private final ArrayList<AState> nodes;
 
     /**
