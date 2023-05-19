@@ -9,7 +9,7 @@ public class Configurations {
     private String mazeSearchingAlgorithm;
 
     private Configurations() throws FileNotFoundException {
-        InputStream input = new FileInputStream("/Users/usernew/Documents/GitHub/ATP-Project/ATP-Project-PartB/resources/config.properties");
+        InputStream input = new FileInputStream("ATP-Project-PartB/resources/config.properties");
         Properties prop = new Properties();
         try{
             prop.load(input);
