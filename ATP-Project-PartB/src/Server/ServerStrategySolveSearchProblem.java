@@ -22,7 +22,8 @@ public class ServerStrategySolveSearchProblem implements IServerStrategy{
      * implements the solving maze and send it through the output stream to the client
      * @param in - getting from the client
      * @param out - sending the solution maze to the out stream
-     * @throws IOException*/
+     * @throws IOException Couldn't read/write to the streams
+     */
     public void serverStrategy(InputStream in, OutputStream out)throws IOException {
         ObjectInputStream fromClient; ObjectOutputStream toClient; Maze maze; Solution solution;
         try {
@@ -35,7 +36,7 @@ public class ServerStrategySolveSearchProblem implements IServerStrategy{
             return;
         }
         int solutionIndex = solvedMazes.indexOf(maze); //trying to find the maze in the MazeSolved array
-        if(solutionIndex == -1) { //we didnt found
+        if(solutionIndex == -1) { //we didn't find
             solvedMazes.add(maze); //adding the maze to the array
             switch (configurations.getSolutionAlgorithm()) { //due to the client preference, we will solve the maze in a different algorithm
                 case "BestFirstSearch" -> solution = new BestFirstSearch().solve(new SearchableMaze(maze));
@@ -74,8 +75,7 @@ public class ServerStrategySolveSearchProblem implements IServerStrategy{
         for(int fileIndex = 0; fileIndex < solvedMazes.size(); fileIndex++) { //running throw all the files and delete them
             String currentFile = String.format(tempDirectoryPath, fileIndex);
             File file = new File(currentFile);
-            if (!file.delete())
-                System.out.println("Failed delete file");
+            file.delete();
         }
     }
 }
