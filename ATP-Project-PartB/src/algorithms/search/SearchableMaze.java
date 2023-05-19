@@ -9,11 +9,8 @@ import java.util.ArrayList;
  * The class only has one attribute to holds the relevant maze
  */
 public class SearchableMaze implements ISearchable {
-    private final Maze maze;
-    public SearchableMaze(Maze maze){
-
-        this.maze = maze;
-    }
+    private Maze maze;
+    public SearchableMaze(Maze maze){this.maze = maze;}
     public AState getStartState(){return new MazeState(0, 0, 0);}
     public AState getEndState(){
         if(maze.getRows() <= 0 || maze.getColumns() <= 0) // if the maze isn't empty

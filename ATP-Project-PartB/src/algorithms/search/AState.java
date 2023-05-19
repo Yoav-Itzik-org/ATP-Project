@@ -6,8 +6,8 @@ package algorithms.search;
  * A "pi" attribute that represent the ancestor of the state.
  * The class also has static counter to generate the id (so it will be unique)
  */
-public abstract class AState implements Comparable<AState> {
-    final private int id;
+public abstract class AState implements Comparable<AState>{
+    private int id;
     private double cost;
     private AState cameFrom;
     private static int counter = 0;
