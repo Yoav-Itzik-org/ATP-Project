@@ -10,11 +10,11 @@ import java.io.Serializable;
  * A maze also has starting and ending position - by default they are top left and bottom right
  */
 public class Maze implements Serializable {
-    final private int[][] array;
-    final private int rows;
-    final private int columns;
-    final private Position start;
-    final private Position end;
+    private int[][] array;
+    private int rows;
+    private int columns;
+    private Position start;
+    private Position end;
     public Maze(int rows, int columns){
         this.rows = rows;
         this.columns = columns;
