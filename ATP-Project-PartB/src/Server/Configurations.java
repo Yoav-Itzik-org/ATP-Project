@@ -13,10 +13,16 @@ public class Configurations {
 
     /**
      * constructor - getting the file and collecting the values
-     * @throws FileNotFoundException not found configuration file
      */
-    private Configurations() throws FileNotFoundException {
-        InputStream input = new FileInputStream("resources/config.properties"); // file path
+    private Configurations(){
+        InputStream input = this.getClass().getClassLoader().getResourceAsStream("config.properties"); // file path
+        if(input == null) { // File not found
+            // Inserting default values to attributes
+            this.threadPoolSize = "1";
+            this.mazeGeneratingAlgorithm = "EmptyMazeGenerator";
+            this.mazeSearchingAlgorithm = "BestFirstSearch";
+            return;
+        }
         Properties prop = new Properties();
         try{
             prop.load(input); //loading the content of the file
