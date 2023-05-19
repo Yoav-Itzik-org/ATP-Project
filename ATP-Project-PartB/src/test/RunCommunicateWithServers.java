@@ -46,7 +46,7 @@ public class RunCommunicateWithServers {
                             maze.print();
                         }
                         catch (Exception e) {
-//                            e.printStackTrace();
+                            e.printStackTrace();
                         }
                     }
                 }
@@ -54,7 +54,7 @@ public class RunCommunicateWithServers {
             client.communicateWithServer();
         }
         catch (Exception e) {
-//            e.printStackTrace();
+            e.printStackTrace();
         }
     }
     private static void CommunicateWithServer_SolveSearchProblem() {
@@ -67,7 +67,7 @@ public class RunCommunicateWithServers {
                             ObjectOutputStream toServer = new ObjectOutputStream(outToServer);
                             ObjectInputStream fromServer = new ObjectInputStream(inFromServer);
                             toServer.flush();
-                            EmptyMazeGenerator mg = new EmptyMazeGenerator();
+                            MyMazeGenerator mg = new MyMazeGenerator();
                             Maze maze = mg.generate(50, 50);
                             maze.print();
                             toServer.writeObject(maze); //send maze to server
