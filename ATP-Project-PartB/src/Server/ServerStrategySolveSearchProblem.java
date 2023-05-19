@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class ServerStrategySolveSearchProblem implements IServerStrategy{
     ArrayList<Maze> solvedMazes;
-    String tempDirectoryPath = System.getProperty("java.io.tmpdir") + "Solutions.txt";
+    String tempDirectoryPath = System.getProperty("java.io.tmpdir") + "Solution%d.solution";
     private final Configurations configurations;
     public ServerStrategySolveSearchProblem(){
         solvedMazes = new ArrayList<>();
@@ -32,7 +32,7 @@ public class ServerStrategySolveSearchProblem implements IServerStrategy{
         int solutionIndex = solvedMazes.indexOf(maze);
         if(solutionIndex == -1) {
             solvedMazes.add(maze);
-            switch (configurations.getSolutionAlgorithm()){
+            switch (configurations.getSolutionAlgorithm()) {
                 case "BestFirstSearch" -> solution = new BestFirstSearch().solve(new SearchableMaze(maze));
                 case "BreadthFirstSearch" -> solution = new BreadthFirstSearch().solve(new SearchableMaze(maze));
                 case "DepthFirstSearch" -> solution = new DepthFirstSearch().solve(new SearchableMaze(maze));
@@ -44,15 +44,15 @@ public class ServerStrategySolveSearchProblem implements IServerStrategy{
                     solution = new Solution(startState);
                 }
             }
-            ObjectOutputStream insertSolutionStream = new ObjectOutputStream(new FileOutputStream(tempDirectoryPath));
+            String currentFile = String.format(tempDirectoryPath, solvedMazes.size() - 1);
+            ObjectOutputStream insertSolutionStream = new ObjectOutputStream(new FileOutputStream(currentFile));
             insertSolutionStream.writeObject(solution);
             System.out.println("Added new solution");
         }
         else {
-            ObjectInputStream getSolutionStream = new ObjectInputStream(new FileInputStream(tempDirectoryPath));
+            String currentFile = String.format(tempDirectoryPath, solutionIndex);
+            ObjectInputStream getSolutionStream = new ObjectInputStream(new FileInputStream(currentFile));
             try {
-                for (int solutionCount = 0; solutionCount < solutionIndex - 1; solutionCount++)
-                    getSolutionStream.readObject();
                 solution = (Solution) getSolutionStream.readObject();
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
@@ -66,8 +66,11 @@ public class ServerStrategySolveSearchProblem implements IServerStrategy{
     }
     public void deleteFile(){
         System.gc();
-        File file = new File(tempDirectoryPath);
-        if(!file.delete())
-            System.out.println("Failed delete file");
+        for(int fileIndex = 0; fileIndex < solvedMazes.size(); fileIndex++) {
+            String currentFile = String.format(tempDirectoryPath, fileIndex);
+            File file = new File(currentFile);
+            if (!file.delete())
+                System.out.println("Failed delete file");
+        }
     }
 }
