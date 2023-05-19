@@ -65,6 +65,7 @@ public class ServerStrategySolveSearchProblem implements IServerStrategy{
         fromClient.close();
     }
     public void deleteFile(){
+        System.gc();
         File file = new File(tempDirectoryPath);
         if(!file.delete())
             System.out.println("Failed delete file");
