@@ -13,9 +13,10 @@ public class Configurations {
 
     /**
      * constructor - getting the file and collecting the values
-     * @throws FileNotFoundException*/
+     * @throws FileNotFoundException not found configuration file
+     */
     private Configurations() throws FileNotFoundException {
-        InputStream input = new FileInputStream("ATP-Project-PartB/resources/config.properties"); // file path
+        InputStream input = new FileInputStream("resources/config.properties"); // file path
         Properties prop = new Properties();
         try{
             prop.load(input); //loading the content of the file
@@ -31,7 +32,8 @@ public class Configurations {
     /**
      * the function return the instance of the class using a singleton method
      * @return Configuration - same instant of all Configuration class
-     * @throws FileNotFoundException*/
+     * @throws FileNotFoundException configuration file not found
+     */
     public static Configurations getInstance() throws FileNotFoundException {
         if (configurations == null)
             configurations = new Configurations();
