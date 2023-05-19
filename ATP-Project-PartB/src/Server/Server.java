@@ -12,22 +12,24 @@ public class Server {
     private final IServerStrategy strategy;
     private volatile boolean stop;
     private ExecutorService threadPool;
-    private Configurations configurations;
+
     public Server(int port, int listeningIntervalMS, IServerStrategy strategy){
         this.port = port;
         this.listeningIntervalMS = listeningIntervalMS;
         this.strategy = strategy;
         try {
-            this.configurations = Configurations.getInstance();
-            this.threadPool = Executors.newFixedThreadPool(Integer.parseInt(configurations.getThreadAmount()));
+            Configurations configurations = Configurations.getInstance();
+            int threadAmount = Integer.parseInt(configurations.getThreadAmount());
+            if(threadAmount <= 0)
+                threadAmount = 1;
+            this.threadPool = Executors.newFixedThreadPool(threadAmount);
         }
         catch (IOException e){
             e.printStackTrace();
         }
     }
     public void start(){
-        try {
-            ServerSocket serverSocket = new ServerSocket(port);
+        try (ServerSocket serverSocket = new ServerSocket(port)) {
             serverSocket.setSoTimeout(listeningIntervalMS);
             new Thread(() -> {
                 try {
