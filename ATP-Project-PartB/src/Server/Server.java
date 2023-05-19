@@ -17,15 +17,13 @@ public class Server {
         this.port = port;
         this.listeningIntervalMS = listeningIntervalMS;
         this.strategy = strategy;
-
         try {
-            this.threadPool = Executors.newFixedThreadPool(Integer.parseInt(getThreadAmount()));
             this.configurations = Configurations.getInstance();
+            this.threadPool = Executors.newFixedThreadPool(Integer.parseInt(configurations.getThreadAmount()));
         }
         catch (IOException e){
             e.printStackTrace();
         }
-
     }
     public void start(){
         try {
@@ -62,9 +60,6 @@ public class Server {
         stop = true;
         if (strategy instanceof ServerStrategySolveSearchProblem)
             ((ServerStrategySolveSearchProblem) strategy).deleteFile();
-        threadPool.shutdown();
+        threadPool.shutdownNow();
     }
-    public String getThreadAmount() throws IOException {return configurations.loadConfig().get(0);}
-    private String getGenerateMaze() throws IOException {return configurations.loadConfig().get(1);}
-    private String getSolutionAlgorithm() throws IOException {return configurations.loadConfig().get(2);}
 }

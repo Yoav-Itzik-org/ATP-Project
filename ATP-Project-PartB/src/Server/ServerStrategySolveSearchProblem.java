@@ -1,9 +1,10 @@
 package Server;
 
+import algorithms.mazeGenerators.EmptyMazeGenerator;
 import algorithms.mazeGenerators.Maze;
-import algorithms.search.BestFirstSearch;
-import algorithms.search.SearchableMaze;
-import algorithms.search.Solution;
+import algorithms.mazeGenerators.MyMazeGenerator;
+import algorithms.mazeGenerators.SimpleMazeGenerator;
+import algorithms.search.*;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -11,6 +12,14 @@ import java.util.ArrayList;
 public class ServerStrategySolveSearchProblem implements IServerStrategy{
     ArrayList<Maze> solvedMazes;
     String tempDirectoryPath = System.getProperty("java.io.tmpdir") + "Solutions.txt";
+    private Configurations configurations;
+    {
+        try {
+            configurations = Configurations.getInstance();
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
     public ServerStrategySolveSearchProblem(){solvedMazes = new ArrayList<>();}
     public void serverStrategy(InputStream in, OutputStream out)throws IOException {
 
@@ -27,7 +36,12 @@ public class ServerStrategySolveSearchProblem implements IServerStrategy{
         int solutionIndex = solvedMazes.indexOf(maze);
         if(solutionIndex == -1) {
             solvedMazes.add(maze);
-            solution = new BestFirstSearch().solve(new SearchableMaze(maze)); // TODO change the search type
+            switch (configurations.getSolutionAlgorithm()){
+                case "BestFirstSearch" -> solution = new BestFirstSearch().solve(new SearchableMaze(maze));
+                case "BreadthFirstSearch" -> solution = new BreadthFirstSearch().solve(new SearchableMaze(maze));
+                case "DepthFirstSearch" -> solution = new DepthFirstSearch().solve(new SearchableMaze(maze));
+                default -> solution = null;
+            }
             ObjectOutputStream insertSolutionStream = new ObjectOutputStream(new FileOutputStream(tempDirectoryPath));
             insertSolutionStream.writeObject(solution);
             System.out.println("Added new solution");
