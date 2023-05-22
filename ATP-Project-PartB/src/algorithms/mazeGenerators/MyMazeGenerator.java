@@ -26,7 +26,6 @@ public class MyMazeGenerator extends AMazeGenerator {
                 column++;
             maze.setPath(row, column); // make path in the process
         }while (!maze.is_end(row, column));
-        makeRandomPaths(maze);  // Add some random paths in the created maze
         return maze;
     }
 }

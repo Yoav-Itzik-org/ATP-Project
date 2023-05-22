@@ -17,7 +17,6 @@ public class SimpleMazeGenerator extends AMazeGenerator {
                 column_path = ((columns != 0 ) ? rnd.nextInt(maze.getColumns()) : 0); // Change the column index path
         }
         setHorizontalPath(maze, maze.getRows() - 1, column_path); // Add path from the column index path to the end position (at the last row)
-        makeRandomPaths(maze);
         return maze;
     }
 
