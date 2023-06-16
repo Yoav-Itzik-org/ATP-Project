@@ -1,19 +1,34 @@
 package Model;
 
-import algorithms.search.AState;
+
+import Client.Client;
+import Client.IClientStrategy;
+import IO.MyDecompressorInputStream;
+import Server.ServerStrategySolveSearchProblem;
+import Server.ServerStrategyGenerateMaze;
+import Server.Server;
 import algorithms.search.Solution;
 import algorithms.mazeGenerators.*;
+
+import java.io.*;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.Observable;
 import java.util.Observer;
 
 public class MyModel extends Observable implements IModel {
+    public static Server mazeGeneratingServer;
+    public static Server solveSearchProblemServer;
     private Maze maze;
     private int playerRow;
     private int playerCol;
     private Solution solution;
     private MyMazeGenerator generator;
     public MyModel() {
-        generator = new MyMazeGenerator();
+        mazeGeneratingServer = new Server(5400, 1000, new ServerStrategyGenerateMaze());
+        solveSearchProblemServer = new Server(5401, 1000, new ServerStrategySolveSearchProblem());
+        solveSearchProblemServer.start();
+        mazeGeneratingServer.start();
     }
 
     @Override
@@ -33,20 +48,20 @@ public class MyModel extends Observable implements IModel {
     public void updatePlayerLocation(Direction direction) {
         switch (direction) {
             case Up -> {
-                if ((playerRow > 0) && (playerRow - 1 > 0))
-                    movePlayer(playerRow - 1, playerCol);
+                if (canUp)
+                    movePlayer(playerPosition.getRowIndex() - 1, playerPosition.getColumnIndex());
             }
             case Down -> {
-                if ((playerRow < maze.getRows() - 1) && (playerRow + 1 < maze.getRows() - 1))
-                    movePlayer(playerRow + 1, playerCol);
+                if (canDown)
+                    movePlayer(playerPosition.getRowIndex() + 1, playerPosition.getColumnIndex());
             }
             case Left -> {
-                if ((playerCol > 0) && (playerCol - 1 > 0))
-                    movePlayer(playerRow, playerCol - 1);
+                if (canLeft)
+                    movePlayer(playerPosition.getRowIndex(), playerPosition.getColumnIndex() - 1);
             }
             case Right -> {
-                if ((playerCol < maze.getColumns() - 1) && (playerCol + 1 < maze.getColumns() - 1))
-                    movePlayer(playerRow, playerCol + 1);
+                if (canRight)
+                    movePlayer(playerPosition.getRowIndex(), playerPosition.getColumnIndex() + 1);
             }
         }
     }
