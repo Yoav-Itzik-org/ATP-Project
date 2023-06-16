@@ -3,6 +3,7 @@ package Model;
 
 import Client.Client;
 import Client.IClientStrategy;
+import IO.MyCompressorOutputStream;
 import IO.MyDecompressorInputStream;
 import Server.ServerStrategySolveSearchProblem;
 import Server.ServerStrategyGenerateMaze;
@@ -147,5 +148,32 @@ public class MyModel extends Observable implements IModel {
     }
     public Solution getSolution() {
         return solution;
+    }
+    public void loadMaze(String path){
+        try {
+            OutputStream out = new MyCompressorOutputStream(new FileOutputStream(path));
+            out.write(maze.toByteArray());
+            out.flush();
+            out.close();
+        } catch (IOException var8) {
+            var8.printStackTrace();
+        }
+        setChanged();
+        notifyObservers("maze loaded");
+    }
+    public void saveMaze(String path){
+        byte[] savedMazeBytes;
+        try {
+            InputStream in = new MyDecompressorInputStream(new FileInputStream(path));
+            savedMazeBytes = new byte[maze.toByteArray().length];
+            in.read(savedMazeBytes);
+            in.close();
+        } catch (IOException var7) {
+            var7.printStackTrace();
+            savedMazeBytes = null;
+        }
+        maze = new Maze(savedMazeBytes);
+        setChanged();
+        notifyObservers("maze saved");
     }
 }
