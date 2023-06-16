@@ -19,7 +19,7 @@ public class RunCommunicateWithServers {
         mazeGeneratingServer.start();
 //Communicating with servers
         CommunicateWithServer_MazeGenerating();
-        CommunicateWithServer_SolveSearchProblem();
+        CommunicateWithServer_SolveSearchProblem();CommunicateWithServer_SolveSearchProblem();
 //Stopping all servers
         mazeGeneratingServer.stop();
         solveSearchProblemServer.stop();
