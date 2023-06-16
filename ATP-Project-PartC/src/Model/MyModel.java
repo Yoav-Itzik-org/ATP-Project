@@ -164,7 +164,7 @@ public class MyModel extends Observable implements IModel {
     public void saveMaze(String path){
         byte[] savedMazeBytes;
         try {
-            InputStream in = new MyDecompressorInputStream(new FileInputStream(path));
+            InputStream in = new MyDecompressorInputStream(new FileInputStream(mazeFile));
             savedMazeBytes = new byte[maze.toByteArray().length];
             in.read(savedMazeBytes);
             in.close();

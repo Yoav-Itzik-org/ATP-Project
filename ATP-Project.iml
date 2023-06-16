@@ -6,8 +6,9 @@
       <sourceFolder url="file://$MODULE_DIR$/ATP-Project-PartB/JUnit" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/ATP-Project-PartB/resources" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/ATP-Project-PartC/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/ATP-Project-PartC/resources" type="java-resource" />
     </content>
-    <orderEntry type="inheritedJdk" />
+    <orderEntry type="jdk" jdkName="corretto-16" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module-library">
       <library name="JUnit5.8.1">
