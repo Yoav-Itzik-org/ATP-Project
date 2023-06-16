@@ -4,14 +4,13 @@ import Model.IModel;
 import algorithms.mazeGenerators.Maze;
 
 import algorithms.search.AState;
-import algorithms.mazeGenerators.*;
 import algorithms.search.*;
 import java.util.ArrayList;
 import java.util.Observer;
 import java.util.Observable;
 
 public class MyViewModel extends Observable implements Observer {
-    private IModel model;
+    private final IModel model;
 
     public MyViewModel(IModel model) {
         this.model = model;
@@ -41,10 +40,17 @@ public class MyViewModel extends Observable implements Observer {
     public void generateMaze(int rows, int cols){
         model.generateMaze(rows, cols);
     }
-    public ArrayList<int[]> getSolution(){ //TODO
+    public ArrayList<int[]> getSolution(){
+        class MyMazeState extends MazeState{
+            public MyMazeState(){super(0, 0, 0);}
+            public int getRow(){return super.getRow();}
+            public int getColumn(){return super.getColumn();}
+        }
         ArrayList<int[]> solutionPath = new ArrayList<>();
-        for(AState step : model.getSolution().getSolutionPath()) {
-//            solutionPath.add(new int[]{((MazeState)step).getRow});
+        for(AState step : model.getSolution().getSolutionPath()){
+            int row = ((MyMazeState)step).getRow();
+            int col = ((MyMazeState)step).getColumn();
+            solutionPath.add(new int[]{row, col});
         }
         return solutionPath;
     }

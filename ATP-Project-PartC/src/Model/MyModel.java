@@ -33,23 +33,21 @@ public class MyModel extends Observable implements IModel {
     @Override
     public void generateMaze(int rows, int cols) {
         try {
-            Client client = new Client(InetAddress.getLocalHost(), 5400, new IClientStrategy() {
-                public void clientStrategy(InputStream inFromServer, OutputStream outToServer) {
-                    try {
-                        ObjectOutputStream toServer = new ObjectOutputStream(outToServer);
-                        ObjectInputStream fromServer = new ObjectInputStream(inFromServer);
-                        toServer.flush();
-                        int[] mazeDimensions = new int[]{50, 50};
-                        toServer.writeObject(mazeDimensions);
-                        toServer.flush();
-                        byte[] compressedMaze = (byte[])fromServer.readObject();
-                        InputStream is = new MyDecompressorInputStream(new ByteArrayInputStream(compressedMaze));
-                        byte[] decompressedMaze = new byte[2508];
-                        is.read(decompressedMaze);
-                        maze = new Maze(decompressedMaze);
-                    } catch (Exception var10) {
-                        var10.printStackTrace();
-                    }
+            Client client = new Client(InetAddress.getLocalHost(), 5400, (inFromServer, outToServer) -> {
+                try {
+                    ObjectOutputStream toServer = new ObjectOutputStream(outToServer);
+                    ObjectInputStream fromServer = new ObjectInputStream(inFromServer);
+                    toServer.flush();
+                    int[] mazeDimensions = new int[]{50, 50};
+                    toServer.writeObject(mazeDimensions);
+                    toServer.flush();
+                    byte[] compressedMaze = (byte[])fromServer.readObject();
+                    InputStream is = new MyDecompressorInputStream(new ByteArrayInputStream(compressedMaze));
+                    byte[] decompressedMaze = new byte[2508];
+                    is.read(decompressedMaze);
+                    maze = new Maze(decompressedMaze);
+                } catch (Exception var10) {
+                    var10.printStackTrace();
                 }
             });
             client.communicateWithServer();
@@ -73,35 +71,35 @@ public class MyModel extends Observable implements IModel {
         boolean canLeft =playerPosition.getColumnIndex() - 1 > 0;
         boolean canRight = playerPosition.getColumnIndex() + 1 < maze.getColumns() - 1;
         switch (direction) {
-            case Up -> {
+            case UP -> {
                 if (canUp)
                     movePlayer(playerPosition.getRowIndex() - 1, playerPosition.getColumnIndex());
             }
-            case Down -> {
+            case DOWN -> {
                 if (canDown)
                     movePlayer(playerPosition.getRowIndex() + 1, playerPosition.getColumnIndex());
             }
-            case Left -> {
+            case LEFT -> {
                 if (canLeft)
                     movePlayer(playerPosition.getRowIndex(), playerPosition.getColumnIndex() - 1);
             }
-            case Right -> {
+            case RIGHT -> {
                 if (canRight)
                     movePlayer(playerPosition.getRowIndex(), playerPosition.getColumnIndex() + 1);
             }
-            case UpLeft -> {
+            case UP_LEFT -> {
                 if(canUp && canLeft)
                     movePlayer(playerPosition.getRowIndex() - 1, playerPosition.getColumnIndex() - 1);
             }
-            case UpRight -> {
+            case UP_RIGHT -> {
                 if (canUp && canRight)
                     movePlayer(playerPosition.getRowIndex() - 1, playerPosition.getColumnIndex() + 1);
             }
-            case DownLeft -> {
+            case DOWN_LEFT -> {
                 if(canDown && canLeft)
                     movePlayer(playerPosition.getRowIndex() + 1, playerPosition.getColumnIndex() - 1);
             }
-            case DownRight -> {
+            case DOWN_RIGHT -> {
                 if (canDown && canRight)
                     movePlayer((playerPosition.getRowIndex() + 1), playerPosition.getColumnIndex() + 1);
             }
@@ -122,21 +120,19 @@ public class MyModel extends Observable implements IModel {
     }
     public void solveMaze() {
         try {
-            Client client = new Client(InetAddress.getLocalHost(), 5401, new IClientStrategy() {
-                public void clientStrategy(InputStream inFromServer, OutputStream outToServer) {
-                    try {
-                        ObjectOutputStream toServer = new ObjectOutputStream(outToServer);
-                        ObjectInputStream fromServer = new ObjectInputStream(inFromServer);
-                        toServer.flush();
-                        MyMazeGenerator mg = new MyMazeGenerator();
-                        Maze maze = mg.generate(50, 50);
-                        maze.print();
-                        toServer.writeObject(maze);
-                        toServer.flush();
-                        solution = (Solution)fromServer.readObject();
-                    } catch (Exception var10) {
-                        var10.printStackTrace();
-                    }
+            Client client = new Client(InetAddress.getLocalHost(), 5401, (inFromServer, outToServer) -> {
+                try {
+                    ObjectOutputStream toServer = new ObjectOutputStream(outToServer);
+                    ObjectInputStream fromServer = new ObjectInputStream(inFromServer);
+                    toServer.flush();
+                    MyMazeGenerator mg = new MyMazeGenerator();
+                    Maze maze = mg.generate(50, 50);
+                    maze.print();
+                    toServer.writeObject(maze);
+                    toServer.flush();
+                    solution = (Solution)fromServer.readObject();
+                } catch (Exception var10) {
+                    var10.printStackTrace();
                 }
             });
             client.communicateWithServer();

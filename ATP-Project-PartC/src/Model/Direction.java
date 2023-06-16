@@ -1,12 +1,12 @@
 package Model;
 
 public enum Direction {
-    Up,
-    Right,
-    Down,
-    Left,
-    UpRight,
-    UpLeft,
-    DownRight,
-    DownLeft
+    UP,
+    RIGHT,
+    DOWN,
+    LEFT,
+    UP_RIGHT,
+    UP_LEFT,
+    DOWN_RIGHT,
+    DOWN_LEFT
 }
