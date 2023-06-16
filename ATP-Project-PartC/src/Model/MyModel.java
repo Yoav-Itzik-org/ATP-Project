@@ -147,11 +147,12 @@ public class MyModel extends Observable implements IModel {
         notifyObservers("maze solved");
     }
     public Solution getSolution() {
+        solveMaze();
         return solution;
     }
-    public void loadMaze(String path){
+    public void loadMaze(File mazeFile){
         try {
-            OutputStream out = new MyCompressorOutputStream(new FileOutputStream(path));
+            OutputStream out = new MyCompressorOutputStream(new FileOutputStream(mazeFile));
             out.write(maze.toByteArray());
             out.flush();
             out.close();
@@ -161,7 +162,7 @@ public class MyModel extends Observable implements IModel {
         setChanged();
         notifyObservers("maze loaded");
     }
-    public void saveMaze(String path){
+    public void saveMaze(File mazeFile){
         byte[] savedMazeBytes;
         try {
             InputStream in = new MyDecompressorInputStream(new FileInputStream(mazeFile));
