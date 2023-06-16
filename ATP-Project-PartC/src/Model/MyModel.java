@@ -20,10 +20,8 @@ public class MyModel extends Observable implements IModel {
     public static Server mazeGeneratingServer;
     public static Server solveSearchProblemServer;
     private Maze maze;
-    private int playerRow;
-    private int playerCol;
+    private Position playerPosition;
     private Solution solution;
-    private MyMazeGenerator generator;
     public MyModel() {
         mazeGeneratingServer = new Server(5400, 1000, new ServerStrategyGenerateMaze());
         solveSearchProblemServer = new Server(5401, 1000, new ServerStrategySolveSearchProblem());
@@ -33,7 +31,30 @@ public class MyModel extends Observable implements IModel {
 
     @Override
     public void generateMaze(int rows, int cols) {
-        maze = generator.generate(rows, cols);
+        try {
+            Client client = new Client(InetAddress.getLocalHost(), 5400, new IClientStrategy() {
+                public void clientStrategy(InputStream inFromServer, OutputStream outToServer) {
+                    try {
+                        ObjectOutputStream toServer = new ObjectOutputStream(outToServer);
+                        ObjectInputStream fromServer = new ObjectInputStream(inFromServer);
+                        toServer.flush();
+                        int[] mazeDimensions = new int[]{50, 50};
+                        toServer.writeObject(mazeDimensions);
+                        toServer.flush();
+                        byte[] compressedMaze = (byte[])fromServer.readObject();
+                        InputStream is = new MyDecompressorInputStream(new ByteArrayInputStream(compressedMaze));
+                        byte[] decompressedMaze = new byte[2508];
+                        is.read(decompressedMaze);
+                        maze = new Maze(decompressedMaze);
+                    } catch (Exception var10) {
+                        var10.printStackTrace();
+                    }
+                }
+            });
+            client.communicateWithServer();
+        } catch (Exception var1) {
+            var1.printStackTrace();
+        }
         setChanged();
         notifyObservers("maze generated");
         movePlayer(0, 0);
@@ -46,6 +67,10 @@ public class MyModel extends Observable implements IModel {
 
     @Override
     public void updatePlayerLocation(Direction direction) {
+        boolean canUp = playerPosition.getRowIndex() - 1 > 0;
+        boolean canDown = playerPosition.getRowIndex() + 1 < maze.getRows() - 1;
+        boolean canLeft =playerPosition.getColumnIndex() - 1 > 0;
+        boolean canRight = playerPosition.getColumnIndex() + 1 < maze.getColumns() - 1;
         switch (direction) {
             case Up -> {
                 if (canUp)
@@ -63,31 +88,60 @@ public class MyModel extends Observable implements IModel {
                 if (canRight)
                     movePlayer(playerPosition.getRowIndex(), playerPosition.getColumnIndex() + 1);
             }
+            case UpLeft -> {
+                if(canUp && canLeft)
+                    movePlayer(playerPosition.getRowIndex() - 1, playerPosition.getColumnIndex() - 1);
+            }
+            case UpRight -> {
+                if (canUp && canRight)
+                    movePlayer(playerPosition.getRowIndex() - 1, playerPosition.getColumnIndex() + 1);
+            }
+            case DownLeft -> {
+                if(canDown && canLeft)
+                    movePlayer(playerPosition.getRowIndex() + 1, playerPosition.getColumnIndex() - 1);
+            }
+            case DownRight -> {
+                if (canDown && canRight)
+                    movePlayer((playerPosition.getRowIndex() + 1), playerPosition.getColumnIndex() + 1);
+            }
         }
     }
 
     private void movePlayer(int row, int col){
-        this.playerRow = row;
-        this.playerCol = col;
+        playerPosition = new Position(row, col);
         setChanged();
         notifyObservers("player moved");
     }
-    public int getPlayerRow() {
-        return playerRow;
-    }
+    public int getPlayerRow() {return playerPosition.getRowIndex();}
     public int getPlayerCol() {
-        return playerCol;
+        return playerPosition.getColumnIndex();
     }
     public void assignObserver(Observer o) {
         this.addObserver(o);
     }
     public void solveMaze() {
-        solution = new Solution(new AState() {
-            @Override
-            public AState getCameFrom() {
-                return super.getCameFrom();
-            }
-        });
+        try {
+            Client client = new Client(InetAddress.getLocalHost(), 5401, new IClientStrategy() {
+                public void clientStrategy(InputStream inFromServer, OutputStream outToServer) {
+                    try {
+                        ObjectOutputStream toServer = new ObjectOutputStream(outToServer);
+                        ObjectInputStream fromServer = new ObjectInputStream(inFromServer);
+                        toServer.flush();
+                        MyMazeGenerator mg = new MyMazeGenerator();
+                        Maze maze = mg.generate(50, 50);
+                        maze.print();
+                        toServer.writeObject(maze);
+                        toServer.flush();
+                        solution = (Solution)fromServer.readObject();
+                    } catch (Exception var10) {
+                        var10.printStackTrace();
+                    }
+                }
+            });
+            client.communicateWithServer();
+        } catch (UnknownHostException var1) {
+            var1.printStackTrace();
+        }
         setChanged();
         notifyObservers("maze solved");
     }
