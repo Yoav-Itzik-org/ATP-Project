@@ -56,7 +56,6 @@ public class MyModel extends Observable implements IModel {
         setChanged();
         notifyObservers("maze generated");
         movePlayer(0, 0);
-//        solveMaze();
     }
 
     @Override
@@ -148,7 +147,7 @@ public class MyModel extends Observable implements IModel {
     public Solution getSolution() {
         return solution;
     }
-    public void loadMaze(File mazeFile){
+    public void saveMaze(File mazeFile){
         try {
             OutputStream out = new MyCompressorOutputStream(new FileOutputStream(mazeFile));
             out.write(maze.toByteArray());
@@ -158,21 +157,29 @@ public class MyModel extends Observable implements IModel {
             var8.printStackTrace();
         }
         setChanged();
-        notifyObservers("maze loaded");
+        notifyObservers("maze saved");
     }
-    public void saveMaze(File mazeFile){
+    public void loadMaze(File mazeFile){
         byte[] savedMazeBytes;
         try {
             InputStream in = new MyDecompressorInputStream(new FileInputStream(mazeFile));
             savedMazeBytes = new byte[maze.toByteArray().length];
             in.read(savedMazeBytes);
             in.close();
+            maze = new Maze(savedMazeBytes);
         } catch (IOException var7) {
             var7.printStackTrace();
             savedMazeBytes = null;
         }
         maze = new Maze(savedMazeBytes);
         setChanged();
-        notifyObservers("maze saved");
+        notifyObservers("maze generated");
+    }
+    public void setMaze(Maze maze){
+        this.maze = maze;
+        this.solution = null;
+        playerPosition = new Position(0, 0);
+        setChanged();
+        notifyObservers("maze generated");
     }
 }

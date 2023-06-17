@@ -57,14 +57,14 @@ public class MyViewModel extends Observable implements Observer {
     public void movePlayer(KeyEvent keyEvent){
         Direction direction;
         switch (keyEvent.getCode()){
-            case NUMPAD8 -> direction = Direction.UP;
-            case NUMPAD2 -> direction = Direction.DOWN;
-            case NUMPAD4 -> direction = Direction.LEFT;
-            case NUMPAD6 -> direction = Direction.RIGHT;
-            case NUMPAD7 -> direction = Direction.UP_LEFT;
-            case NUMPAD9 -> direction = Direction.UP_RIGHT;
-            case NUMPAD1 -> direction = Direction.DOWN_LEFT;
-            case NUMPAD3 -> direction = Direction.DOWN_RIGHT;
+            case W -> direction = Direction.UP;
+            case S -> direction = Direction.DOWN;
+            case A -> direction = Direction.LEFT;
+            case D -> direction = Direction.RIGHT;
+            case Q -> direction = Direction.UP_LEFT;
+            case E -> direction = Direction.UP_RIGHT;
+            case Z -> direction = Direction.DOWN_LEFT;
+            case C -> direction = Direction.DOWN_RIGHT;
             default -> {
                 // no need to move the player...
                 return;

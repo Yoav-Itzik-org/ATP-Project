@@ -95,7 +95,7 @@
             <Rectangle x="0" y="0" width="1" height="400" fill="black" />
             <Rectangle x="390" y="0" width="1" height="400" fill="black" />
             <children>
-                <MazeDisplayer fx:id="mazeDisplayer" height="400.0" imageFileNamePlayer="ATP-Project-PartC/resources/mario.jpg" imageFileNameWall="ATP-Project-PartC/resources/wall.png" onKeyPressed="#keyPressed" width="400.0" />
+                <MazeDisplayer fx:id="mazeDisplayer" height="400.0" imageFileNamePlayer="ATP-Project-PartC/resources/spongebob.png" imageFileNameWall="ATP-Project-PartC/resources/crabypatty.png" imageFileNameFinal="ATP-Project-PartC/resources/final.png" onKeyPressed="#keyPressed" width="400.0" />
             </children>
             <padding>
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

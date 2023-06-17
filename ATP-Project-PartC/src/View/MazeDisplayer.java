@@ -20,6 +20,7 @@ public class MazeDisplayer extends Canvas {
     // wall and player images:
     StringProperty imageFileNameWall = new SimpleStringProperty();
     StringProperty imageFileNamePlayer = new SimpleStringProperty();
+    StringProperty imageFileNameFinal = new SimpleStringProperty();
 
 
     public int getPlayerRow() {
@@ -41,6 +42,7 @@ public class MazeDisplayer extends Canvas {
         draw();
     }
 
+    // WALL
     public String getImageFileNameWall() {
         return imageFileNameWall.get();
     }
@@ -53,6 +55,7 @@ public class MazeDisplayer extends Canvas {
         this.imageFileNameWall.set(imageFileNameWall);
     }
 
+    // PLAYER
     public String getImageFileNamePlayer() {
         return imageFileNamePlayer.get();
     }
@@ -63,6 +66,19 @@ public class MazeDisplayer extends Canvas {
 
     public void setImageFileNamePlayer(String imageFileNamePlayer) {
         this.imageFileNamePlayer.set(imageFileNamePlayer);
+    }
+
+    // FINAL
+    public String getImageFileNameFinal() {
+        return imageFileNameFinal.get();
+    }
+
+    public String imageFileNameFinalProperty() {
+        return imageFileNameFinal.get();
+    }
+
+    public void setImageFileNameFinal(String imageFileNameFinal) {
+        this.imageFileNameFinal.set(imageFileNameFinal);
     }
 
     public void drawMaze(int[][] maze) {
@@ -91,7 +107,6 @@ public class MazeDisplayer extends Canvas {
             drawPlayer(graphicsContext, cellHeight, cellWidth);
         }
     }
-
     public void drawSolutionPath(GraphicsContext graphicsContext, double cellHeight, double cellWidth) {
         // Yoav's Implementation - Maybe bizayon
         graphicsContext.setFill(Color.GREEN);
@@ -104,24 +119,32 @@ public class MazeDisplayer extends Canvas {
     private void drawMazeWalls(GraphicsContext graphicsContext, double cellHeight, double cellWidth, int rows, int cols) {
         graphicsContext.setFill(javafx.scene.paint.Color.RED);
 
-        javafx.scene.image.Image wallImage = null;
+        javafx.scene.image.Image wallImage = null; javafx.scene.image.Image finalImage = null;
         try{
             wallImage = new javafx.scene.image.Image(new FileInputStream(getImageFileNameWall()));
         } catch (FileNotFoundException e) {
             System.out.println("There is no wall image file");
         }
-
+        try{
+            finalImage = new javafx.scene.image.Image(new FileInputStream(getImageFileNameFinal()));
+        } catch (FileNotFoundException e) {
+            System.out.println("There is no final image file");
+        }
+        if (maze == null)
+            return;
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
-                if(maze[i][j] == 1){
                     //if it is a wall:
                     double x = j * cellWidth;
                     double y = i * cellHeight;
-                    if(wallImage == null)
+                if(maze[i][j] == 1) {
+                    if (wallImage == null)
                         graphicsContext.fillRect(x, y, cellWidth, cellHeight);
                     else
                         graphicsContext.drawImage(wallImage, x, y, cellWidth, cellHeight);
                 }
+                    if(i == rows - 1 && j == cols - 1 && finalImage != null)
+                        graphicsContext.drawImage(finalImage, x, y, cellWidth, cellHeight);
             }
         }
     }

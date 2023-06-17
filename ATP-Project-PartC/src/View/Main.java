@@ -10,8 +10,8 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("MyView.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
-        stage.setTitle("MAZE APP");
+        Scene scene = new Scene(fxmlLoader.load(), 1000, 1000);
+        stage.setTitle("Maze APP");
         stage.setScene(scene);
         stage.show();
     }
