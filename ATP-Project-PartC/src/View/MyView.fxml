@@ -20,6 +20,7 @@
 <?import javafx.scene.layout.VBox?>
 
 <?import View.MazeDisplayer?>
+<?import javafx.scene.shape.Rectangle?>
 <BorderPane onMouseClicked="#mouseClicked" prefHeight="408.0" prefWidth="594.0" stylesheets="@ProjectStyle.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.MyViewController">
     <left>
         <VBox prefHeight="200.0" prefWidth="178.0" spacing="5.0" BorderPane.alignment="CENTER">
@@ -39,10 +40,10 @@
                     </rowConstraints>
                     <Label text="Maze rows:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
                     <Label text="Maze columns:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-                    <TextField fx:id="textField_mazeRows" text="50" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-                    <TextField fx:id="textField_mazeColumns" text="50" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                    <Button onAction="#generateMaze" prefHeight="25.0" prefWidth="167.0" text="Generate Maze" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="2" />
-                    <Button cancelButton="true" onAction="#solveMaze" prefHeight="25.0" prefWidth="167.0" text="Solve Maze" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="3" />
+                    <TextField fx:id="textField_mazeRows" text="rows" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                    <TextField fx:id="textField_mazeColumns" text="column" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                    <Button fx:id="generate" onAction="#generateMaze" prefHeight="25.0" prefWidth="167.0" text="Generate Maze" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="2"/>
+                    <Button fx:id="solve" onAction="#solveMaze" prefHeight="25.0" prefWidth="167.0" text="Solve Maze" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="3" visible="false"/>
                     <Label text="Player Row = " GridPane.rowIndex="4" />
                     <Label text="Player Col = " GridPane.rowIndex="5" />
                     <Label fx:id="playerRow" GridPane.columnIndex="1" GridPane.rowIndex="4" />
@@ -54,13 +55,13 @@
             </padding>
         </VBox>
     </left>
-    <bottom>
-        <HBox BorderPane.alignment="CENTER">
-            <children>
-                <Label text="Status bar" />
-            </children>
-        </HBox>
-    </bottom>
+<!--    <bottom>-->
+<!--        <HBox BorderPane.alignment="CENTER">-->
+<!--            <children>-->
+<!--                <Label text="Status bar" />-->
+<!--            </children>-->
+<!--        </HBox>-->
+<!--    </bottom>-->
     <top>
         <VBox BorderPane.alignment="CENTER">
             <children>
@@ -89,8 +90,12 @@
     </top>
     <center>
         <Pane BorderPane.alignment="CENTER">
+            <Rectangle x="0" y="0" width="400" height="1" fill="black" />
+            <Rectangle x="0" y="390" width="400" height="1" fill="black" />
+            <Rectangle x="0" y="0" width="1" height="400" fill="black" />
+            <Rectangle x="390" y="0" width="1" height="400" fill="black" />
             <children>
-                <MazeDisplayer fx:id="mazeDisplayer" height="400.0" imageFileNamePlayer="./resources/images/mario.jpg" imageFileNameWall="./resources/images/wall.png" onKeyPressed="#keyPressed" width="400.0" />
+                <MazeDisplayer fx:id="mazeDisplayer" height="400.0" imageFileNamePlayer="ATP-Project-PartC/resources/mario.jpg" imageFileNameWall="ATP-Project-PartC/resources/wall.png" onKeyPressed="#keyPressed" width="400.0" />
             </children>
             <padding>
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

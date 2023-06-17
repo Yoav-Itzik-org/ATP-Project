@@ -9,6 +9,7 @@ import algorithms.search.*;
 import javafx.scene.input.KeyEvent;
 
 import java.io.File;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Observer;
 import java.util.Observable;
@@ -45,11 +46,6 @@ public class MyViewModel extends Observable implements Observer {
         model.generateMaze(rows, cols);
     }
     public ArrayList<int[]> getSolution(){
-        class MyMazeState extends MazeState{
-            public MyMazeState(){super(0, 0, 0);}
-            public int getRow(){return super.getRow();}
-            public int getColumn(){return super.getColumn();}
-        }
         ArrayList<int[]> solutionPath = new ArrayList<>();
         for(AState step : model.getSolution().getSolutionPath()){
             int row = ((MazeState)step).getRow(); int col = ((MazeState)step).getColumn();

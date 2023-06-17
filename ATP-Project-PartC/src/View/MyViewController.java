@@ -5,7 +5,9 @@ import ViewModel.MyViewModel;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
@@ -19,12 +21,16 @@ import java.util.ResourceBundle;
 
 public class MyViewController implements IView{
     public MyViewModel viewModel;
+    @FXML
+    private Button solve;
 
+    public MyViewController(){
+        setViewModel(new MyViewModel(new MyModel()));
+    }
     public void setViewModel(MyViewModel viewModel) {
         this.viewModel = viewModel;
         this.viewModel.addObserver(this);
     }
-
     public TextField textField_mazeRows;
     public TextField textField_mazeColumns;
     public MazeDisplayer mazeDisplayer;
@@ -60,6 +66,7 @@ public class MyViewController implements IView{
         int rows = Integer.parseInt(textField_mazeRows.getText());
         int cols = Integer.parseInt(textField_mazeColumns.getText());
         viewModel.generateMaze(rows, cols);
+        solve.setVisible(true);
     }
 
     public void solveMaze(ActionEvent actionEvent) {

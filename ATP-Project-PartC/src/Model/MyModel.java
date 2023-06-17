@@ -37,12 +37,12 @@ public class MyModel extends Observable implements IModel {
                     ObjectOutputStream toServer = new ObjectOutputStream(outToServer);
                     ObjectInputStream fromServer = new ObjectInputStream(inFromServer);
                     toServer.flush();
-                    int[] mazeDimensions = new int[]{50, 50};
+                    int[] mazeDimensions = new int[]{rows, cols};
                     toServer.writeObject(mazeDimensions);
                     toServer.flush();
                     byte[] compressedMaze = (byte[])fromServer.readObject();
                     InputStream is = new MyDecompressorInputStream(new ByteArrayInputStream(compressedMaze));
-                    byte[] decompressedMaze = new byte[2508];
+                    byte[] decompressedMaze = new byte[rows * cols + 8];
                     is.read(decompressedMaze);
                     maze = new Maze(decompressedMaze);
                 } catch (Exception var10) {
