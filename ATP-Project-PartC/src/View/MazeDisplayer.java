@@ -92,8 +92,13 @@ public class MazeDisplayer extends Canvas {
     }
 
     private void drawSolution(GraphicsContext graphicsContext, double cellHeight, double cellWidth) {
-        // need to be implemented
-        System.out.println("drawing solution...");
+        // Yoav's Implementation - Maybe bizayon
+        graphicsContext.setFill(Color.GREEN);
+        for(int[] coordinates : solution){
+            double x = coordinates[0] * cellWidth;
+            double y = coordinates[1] * cellHeight;
+            graphicsContext.fillRect(x, y, cellWidth, cellHeight);
+        }
     }
 
     private void drawMazeWalls(GraphicsContext graphicsContext, double cellHeight, double cellWidth, int rows, int cols) {
