@@ -66,14 +66,15 @@ public class MazeDisplayer extends Canvas {
     }
 
     public void drawMaze(int[][] maze) {
+        this.solution = null;
         this.maze = maze;
         draw();
     }
 
     private void draw() {
         if(maze != null){
-            double canvasHeight = getHeight();
-            double canvasWidth = getWidth();
+            double canvasHeight = getHeight() - 2;
+            double canvasWidth = getWidth() - 2;
             int rows = maze.length;
             int cols = maze[0].length;
 
@@ -82,16 +83,16 @@ public class MazeDisplayer extends Canvas {
 
             GraphicsContext graphicsContext = this.getGraphicsContext2D();
             //clear the canvas:
-            graphicsContext.clearRect(0, 0, canvasWidth, canvasHeight);
+            graphicsContext.clearRect(1, 1, canvasWidth, canvasHeight);
 
             drawMazeWalls(graphicsContext, cellHeight, cellWidth, rows, cols);
             if(solution != null)
-                drawSolution(graphicsContext, cellHeight, cellWidth);
+                drawSolutionPath(graphicsContext, cellHeight, cellWidth);
             drawPlayer(graphicsContext, cellHeight, cellWidth);
         }
     }
 
-    private void drawSolution(GraphicsContext graphicsContext, double cellHeight, double cellWidth) {
+    public void drawSolutionPath(GraphicsContext graphicsContext, double cellHeight, double cellWidth) {
         // Yoav's Implementation - Maybe bizayon
         graphicsContext.setFill(Color.GREEN);
         for(int[] coordinates : solution){
@@ -126,8 +127,8 @@ public class MazeDisplayer extends Canvas {
         }
     }
     private void drawPlayer(GraphicsContext graphicsContext, double cellHeight, double cellWidth) {
-        double x = getPlayerCol() * cellWidth;
-        double y = getPlayerRow() * cellHeight;
+        double x = getPlayerCol() * cellWidth + 1;
+        double y = getPlayerRow() * cellHeight + 1;
         graphicsContext.setFill(Color.GREEN);
 
         javafx.scene.image.Image playerImage = null;

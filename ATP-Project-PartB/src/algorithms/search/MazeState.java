@@ -14,8 +14,8 @@ public class MazeState extends AState implements Serializable {
         position = new Position(row, column);
         setCost(cost);
     }
-    protected int getRow() {return position.getRowIndex();}
-    protected int getColumn() {return position.getColumnIndex();}
+    public int getRow() {return position.getRowIndex();}
+    public int getColumn() {return position.getColumnIndex();}
 
     /**
      * Overriding equals. two MazeStates considered equal if their position's coordinates are equal

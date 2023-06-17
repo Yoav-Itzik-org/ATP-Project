@@ -56,6 +56,7 @@ public class MyModel extends Observable implements IModel {
         setChanged();
         notifyObservers("maze generated");
         movePlayer(0, 0);
+//        solveMaze();
     }
 
     @Override
@@ -130,9 +131,6 @@ public class MyModel extends Observable implements IModel {
                     ObjectOutputStream toServer = new ObjectOutputStream(outToServer);
                     ObjectInputStream fromServer = new ObjectInputStream(inFromServer);
                     toServer.flush();
-                    MyMazeGenerator mg = new MyMazeGenerator();
-                    Maze maze = mg.generate(50, 50);
-                    maze.print();
                     toServer.writeObject(maze);
                     toServer.flush();
                     solution = (Solution)fromServer.readObject();
@@ -148,7 +146,6 @@ public class MyModel extends Observable implements IModel {
         notifyObservers("maze solved");
     }
     public Solution getSolution() {
-        solveMaze();
         return solution;
     }
     public void loadMaze(File mazeFile){

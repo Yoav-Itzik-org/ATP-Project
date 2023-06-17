@@ -52,8 +52,7 @@ public class MyViewModel extends Observable implements Observer {
         }
         ArrayList<int[]> solutionPath = new ArrayList<>();
         for(AState step : model.getSolution().getSolutionPath()){
-            int row = ((MyMazeState)step).getRow();
-            int col = ((MyMazeState)step).getColumn();
+            int row = ((MazeState)step).getRow(); int col = ((MazeState)step).getColumn();
             solutionPath.add(new int[]{row, col});
         }
         return solutionPath;

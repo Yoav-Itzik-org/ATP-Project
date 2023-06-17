@@ -1,5 +1,6 @@
 package View;
 
+import Model.MyModel;
 import ViewModel.MyViewModel;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -62,9 +63,6 @@ public class MyViewController implements IView{
     }
 
     public void solveMaze(ActionEvent actionEvent) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setContentText("Solving maze...");
-        alert.show();
         viewModel.solveMaze();
     }
 
@@ -109,10 +107,6 @@ public class MyViewController implements IView{
         }
     }
     private void mazeSolved() {mazeDisplayer.setSolution(viewModel.getSolution());}
-    private void playerMoved() {
-        setPlayerPosition(viewModel.getPlayerRow(), viewModel.getPlayerCol());
-    }
-    private void mazeGenerated() {
-        mazeDisplayer.drawMaze(viewModel.getMaze());
-    }
+    private void playerMoved() {setPlayerPosition(viewModel.getPlayerRow(), viewModel.getPlayerCol());}
+    private void mazeGenerated() {mazeDisplayer.drawMaze(viewModel.getMaze());}
 }
