@@ -2,7 +2,6 @@ package Model;
 
 
 import Client.Client;
-import Client.IClientStrategy;
 import IO.MyCompressorOutputStream;
 import IO.MyDecompressorInputStream;
 import Server.ServerStrategySolveSearchProblem;
@@ -66,42 +65,48 @@ public class MyModel extends Observable implements IModel {
 
     @Override
     public void updatePlayerLocation(Direction direction) {
-        boolean canUp = playerPosition.getRowIndex() - 1 > 0;
-        boolean canDown = playerPosition.getRowIndex() + 1 < maze.getRows() - 1;
-        boolean canLeft =playerPosition.getColumnIndex() - 1 > 0;
-        boolean canRight = playerPosition.getColumnIndex() + 1 < maze.getColumns() - 1;
+        int row = playerPosition.getRowIndex();
+        int col = playerPosition.getColumnIndex();
+        boolean canUp = maze.containsPath(row - 1, col);
+        boolean canDown = maze.containsPath(row + 1, col);
+        boolean canLeft = maze.containsPath(row, col - 1);
+        boolean canRight = maze.containsPath(row, col + 1);
+        boolean canUpLeft = maze.containsPath(row - 1, col - 1);
+        boolean canUpRight = maze.containsPath(row - 1, col + 1);
+        boolean canDownLeft = maze.containsPath(row + 1, col - 1);
+        boolean canDownRight = maze.containsPath(row + 1, col + 1);
         switch (direction) {
             case UP -> {
                 if (canUp)
-                    movePlayer(playerPosition.getRowIndex() - 1, playerPosition.getColumnIndex());
+                    movePlayer(row - 1, col);
             }
             case DOWN -> {
                 if (canDown)
-                    movePlayer(playerPosition.getRowIndex() + 1, playerPosition.getColumnIndex());
+                    movePlayer(row + 1, col);
             }
             case LEFT -> {
                 if (canLeft)
-                    movePlayer(playerPosition.getRowIndex(), playerPosition.getColumnIndex() - 1);
+                    movePlayer(row, col - 1);
             }
             case RIGHT -> {
                 if (canRight)
-                    movePlayer(playerPosition.getRowIndex(), playerPosition.getColumnIndex() + 1);
+                    movePlayer(row, col + 1);
             }
             case UP_LEFT -> {
-                if(canUp && canLeft)
-                    movePlayer(playerPosition.getRowIndex() - 1, playerPosition.getColumnIndex() - 1);
+                if(canUpLeft)
+                    movePlayer(row - 1, col - 1);
             }
             case UP_RIGHT -> {
-                if (canUp && canRight)
-                    movePlayer(playerPosition.getRowIndex() - 1, playerPosition.getColumnIndex() + 1);
+                if (canUpRight)
+                    movePlayer(row - 1, col + 1);
             }
             case DOWN_LEFT -> {
-                if(canDown && canLeft)
-                    movePlayer(playerPosition.getRowIndex() + 1, playerPosition.getColumnIndex() - 1);
+                if(canDownLeft)
+                    movePlayer(row + 1, col - 1);
             }
             case DOWN_RIGHT -> {
-                if (canDown && canRight)
-                    movePlayer((playerPosition.getRowIndex() + 1), playerPosition.getColumnIndex() + 1);
+                if (canDownRight)
+                    movePlayer( row + 1, col + 1);
             }
         }
     }
