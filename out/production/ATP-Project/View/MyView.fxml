@@ -21,6 +21,7 @@
 
 <?import View.MazeDisplayer?>
 <?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.control.MenuButton?>
 <BorderPane onMouseClicked="#mouseClicked" prefHeight="408.0" prefWidth="594.0" stylesheets="@ProjectStyle.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.MyViewController">
     <left>
         <VBox prefHeight="200.0" prefWidth="178.0" spacing="5.0" BorderPane.alignment="CENTER">
@@ -64,28 +65,25 @@
 <!--    </bottom>-->
     <top>
         <VBox BorderPane.alignment="CENTER">
-            <children>
-                <MenuBar>
-                    <menus>
-                        <Menu mnemonicParsing="false" text="File">
-                            <items>
-                                <MenuItem mnemonicParsing="false" onAction="#openFile" text="Open" />
-                                <MenuItem mnemonicParsing="false" text="Close" />
-                            </items>
-                        </Menu>
-                        <Menu mnemonicParsing="false" text="Edit">
-                            <items>
-                                <MenuItem mnemonicParsing="false" text="Delete" />
-                            </items>
-                        </Menu>
-                        <Menu mnemonicParsing="false" text="Help">
-                            <items>
-                                <MenuItem mnemonicParsing="false" text="About" />
-                            </items>
-                        </Menu>
-                    </menus>
-                </MenuBar>
-            </children>
+            <MenuBar>
+                <Menu mnemonicParsing="false" text="File">
+                    <MenuItem mnemonicParsing="false" onAction="#newFile" text="New"/>
+                    <MenuItem mnemonicParsing="false" onAction="#saveFile" text="Save"/>
+                    <MenuItem mnemonicParsing="false" onAction="#openFile" text="Load"/>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Options">
+                    <MenuItem mnemonicParsing="false" onAction="#updateProperties" text="Properties"/>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Exit">
+                    <MenuItem fx:id="closeButton" mnemonicParsing="false" onAction="#exitProject" text="Exit"/>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Help">
+                    <MenuItem mnemonicParsing="false" onAction="#help" text="Help"/>
+                </Menu>
+                <Menu mnemonicParsing="false" text="About">
+                    <MenuItem mnemonicParsing="false" onAction="#about" text="About"/>
+                </Menu>
+            </MenuBar>
         </VBox>
     </top>
     <center>
@@ -95,7 +93,7 @@
             <Rectangle x="0" y="0" width="1" height="400" fill="black" />
             <Rectangle x="390" y="0" width="1" height="400" fill="black" />
             <children>
-                <MazeDisplayer fx:id="mazeDisplayer" height="400.0" imageFileNamePlayer="ATP-Project-PartC/resources/mario.jpg" imageFileNameWall="ATP-Project-PartC/resources/wall.png" onKeyPressed="#keyPressed" width="400.0" />
+                <MazeDisplayer fx:id="mazeDisplayer" height="400.0" imageFileNamePlayer="ATP-Project-PartC/resources/spongebob.png" imageFileNameWall="ATP-Project-PartC/resources/crabypatty.png" imageFileNameFinal="ATP-Project-PartC/resources/final.png" onKeyPressed="#keyPressed" width="400.0" />
             </children>
             <padding>
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

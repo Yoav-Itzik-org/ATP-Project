@@ -88,19 +88,15 @@ public class MazeDisplayer extends Canvas {
     }
 
     private void draw() {
+        double canvasHeight = getHeight() - 2;
+        double canvasWidth = getWidth() - 2;
+        GraphicsContext graphicsContext = this.getGraphicsContext2D();
+        graphicsContext.clearRect(1, 1, canvasWidth, canvasHeight);
         if(maze != null){
-            double canvasHeight = getHeight() - 2;
-            double canvasWidth = getWidth() - 2;
             int rows = maze.length;
             int cols = maze[0].length;
-
             double cellHeight = canvasHeight / rows;
             double cellWidth = canvasWidth / cols;
-
-            GraphicsContext graphicsContext = this.getGraphicsContext2D();
-            //clear the canvas:
-            graphicsContext.clearRect(1, 1, canvasWidth, canvasHeight);
-
             drawMazeWalls(graphicsContext, cellHeight, cellWidth, rows, cols);
             if(solution != null)
                 drawSolutionPath(graphicsContext, cellHeight, cellWidth);
@@ -111,8 +107,8 @@ public class MazeDisplayer extends Canvas {
         // Yoav's Implementation - Maybe bizayon
         graphicsContext.setFill(Color.GREEN);
         for(int[] coordinates : solution){
-            double x = coordinates[0] * cellWidth;
-            double y = coordinates[1] * cellHeight;
+            double y = coordinates[0] * cellWidth;
+            double x = coordinates[1] * cellHeight;
             graphicsContext.fillRect(x, y, cellWidth, cellHeight);
         }
     }

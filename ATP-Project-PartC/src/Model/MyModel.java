@@ -182,4 +182,8 @@ public class MyModel extends Observable implements IModel {
         setChanged();
         notifyObservers("maze generated");
     }
+    public void exitProject(){
+        setChanged();
+        notifyObservers("exit project");
+    }
 }

@@ -2,17 +2,17 @@ package View;
 
 import Model.MyModel;
 import ViewModel.MyViewModel;
-import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+import javafx.stage.Window;
 
 import java.io.File;
 import java.io.IOException;
@@ -20,10 +20,13 @@ import java.net.URL;
 import java.util.Observable;
 import java.util.ResourceBundle;
 
+import static com.sun.javafx.application.PlatformImpl.exit;
+
 public class MyViewController implements IView{
     public MyViewModel viewModel;
     @FXML
     private Button solve;
+
 
     public MyViewController(){
         setViewModel(new MyViewModel(new MyModel()));
@@ -81,7 +84,7 @@ public class MyViewController implements IView{
         FileChooser fc = new FileChooser();
         fc.setTitle("Open maze");
         fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("Maze files (*.maze)", "*.maze"));
-        fc.setInitialDirectory(new File("./resources"));
+        fc.setInitialDirectory(new File("ATP-Project-PartC/resources"));
         File chosen = fc.showOpenDialog(null);
         try{
             chosen.createNewFile();
@@ -95,7 +98,7 @@ public class MyViewController implements IView{
         FileChooser fc = new FileChooser();
         fc.setTitle("Save maze");
         fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("Maze files (*.maze)", "*.maze"));
-        fc.setInitialDirectory(new File("./resources"));
+        fc.setInitialDirectory(new File("ATP-Project-PartC/resources"));
         File chosen = fc.showSaveDialog(null);
         try{
             chosen.createNewFile();

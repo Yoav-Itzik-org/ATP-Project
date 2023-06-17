@@ -26,13 +26,17 @@ public class MyViewModel extends Observable implements Observer {
     }
     public int[][] getMaze(){
         Maze maze =  model.getMaze();
-        int rows = maze.getRows(); int cols = maze.getColumns();
-        int[][] mazeArray = new int[rows][cols];
-        for(int row = 0; row < rows; ++row)
-            for(int column = 0; column < cols; ++column) {
-                mazeArray[row][column] = maze.containsPath(row, column) ? 0 : 1;
-            }
-        return mazeArray;
+        if (maze != null) {
+            int rows = maze.getRows();
+            int cols = maze.getColumns();
+            int[][] mazeArray = new int[rows][cols];
+            for (int row = 0; row < rows; ++row)
+                for (int column = 0; column < cols; ++column) {
+                    mazeArray[row][column] = maze.containsPath(row, column) ? 0 : 1;
+                }
+            return mazeArray;
+        }
+        return null;
     }
     public int getPlayerRow(){
         return model.getPlayerRow();
@@ -75,7 +79,7 @@ public class MyViewModel extends Observable implements Observer {
     public void openMaze(File maze){
         model.loadMaze(maze);
     }
-    public void saveMaze(File maze){
-        model.saveMaze(maze);
-    }
+    public void saveMaze(File maze){model.saveMaze(maze);}
+    public void setMaze(Maze maze){model.setMaze(maze);}
+    public void exitProject(){model.exitProject();}
 }
