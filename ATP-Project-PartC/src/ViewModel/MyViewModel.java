@@ -1,10 +1,14 @@
 package ViewModel;
 
+import Model.Direction;
 import Model.IModel;
 import algorithms.mazeGenerators.Maze;
 
 import algorithms.search.AState;
 import algorithms.search.*;
+import javafx.scene.input.KeyEvent;
+
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Observer;
 import java.util.Observable;
@@ -53,5 +57,32 @@ public class MyViewModel extends Observable implements Observer {
             solutionPath.add(new int[]{row, col});
         }
         return solutionPath;
+    }
+    public void solveMaze(){
+        model.solveMaze();
+    }
+    public void movePlayer(KeyEvent keyEvent){
+        Direction direction;
+        switch (keyEvent.getCode()){
+            case NUMPAD8 -> direction = Direction.UP;
+            case NUMPAD2 -> direction = Direction.DOWN;
+            case NUMPAD4 -> direction = Direction.LEFT;
+            case NUMPAD6 -> direction = Direction.RIGHT;
+            case NUMPAD7 -> direction = Direction.UP_LEFT;
+            case NUMPAD9 -> direction = Direction.UP_RIGHT;
+            case NUMPAD1 -> direction = Direction.DOWN_LEFT;
+            case NUMPAD3 -> direction = Direction.DOWN_RIGHT;
+            default -> {
+                // no need to move the player...
+                return;
+            }
+        }
+        model.updatePlayerLocation(direction);
+    }
+    public void openMaze(File maze){
+        model.loadMaze(maze);
+    }
+    public void saveMaze(File maze){
+        model.saveMaze(maze);
     }
 }
