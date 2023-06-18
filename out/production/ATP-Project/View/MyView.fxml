@@ -53,13 +53,6 @@
             </padding>
         </VBox>
     </left>
-<!--    <bottom>-->
-<!--        <HBox BorderPane.alignment="CENTER">-->
-<!--            <children>-->
-<!--                <Label text="Status bar" />-->
-<!--            </children>-->
-<!--        </HBox>-->
-<!--    </bottom>-->
     <top>
         <VBox BorderPane.alignment="CENTER">
             <MenuBar>

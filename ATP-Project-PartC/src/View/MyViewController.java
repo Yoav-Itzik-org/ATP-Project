@@ -7,19 +7,21 @@ import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.nio.file.Paths;
+import java.util.Objects;
 import java.util.Observable;
 import java.util.ResourceBundle;
 
@@ -28,7 +30,6 @@ public class MyViewController implements IView{
     @FXML
     private Button solve;
     public Thread t1;
-
 
     public MyViewController(){
         setViewModel(new MyViewModel(new MyModel()));
@@ -121,9 +122,9 @@ public class MyViewController implements IView{
     public void help(ActionEvent actionEvent) {
         // TODO
     }
-    public void about(ActionEvent actionEvent) {
-        // TODO
-    }
+//    public void about(ActionEvent actionEvent) {
+//        // TODO
+//    }
     public void keyPressed(KeyEvent keyEvent) {
         viewModel.movePlayer(keyEvent);
         keyEvent.consume();
@@ -155,7 +156,7 @@ public class MyViewController implements IView{
         mazeDisplayer.setSolution(viewModel.getSolution());}
     private void playerMoved() {setPlayerPosition(viewModel.getPlayerRow(), viewModel.getPlayerCol());}
     private void mazeGenerated() {
-        t1 = new Music("startSong");
+        t1 = new Music("startSong", false);
         t1.start();
         mazeDisplayer.drawMaze(viewModel.getMaze());}
     private void mazeSaved(){
@@ -164,10 +165,23 @@ public class MyViewController implements IView{
         alert.show();
     }
     private void isSolved(){
-        t1 = new Music("endSong");
+        t1 = new Music("endSong", false);
         t1.start();
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setContentText("Maze resolved successfully");
         alert.show();
+    }
+    public void about(ActionEvent actionEvent) {
+        try {
+            Stage stage = new Stage();
+            stage.setTitle("About");
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("About.fxml")));
+            Scene scene = new Scene(root, 300, 165);
+            stage.setScene(scene);
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.show();
+        } catch (Exception e) {
+            System.out.println("Error About.fxml not found");
+        }
     }
 }
