@@ -14,6 +14,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.media.AudioClip;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -31,6 +32,7 @@ public class MyViewController implements IView{
     @FXML
     private Button solve;
     public Thread t1;
+    private AudioClip audio ;
 
     public MyViewController(){
         setViewModel(new MyViewModel(new MyModel()));
@@ -113,19 +115,10 @@ public class MyViewController implements IView{
             System.out.println("Cannot save maze");
         }
     }
-    public void updateProperties(ActionEvent actionEvent) {
-        // TODO
-    }
     public void exitProject(ActionEvent actionEvent) {
         Platform.exit();
         System.exit(0);
     }
-    public void help(ActionEvent actionEvent) {
-        // TODO
-    }
-//    public void about(ActionEvent actionEvent) {
-//        // TODO
-//    }
     public void keyPressed(KeyEvent keyEvent) {
         viewModel.movePlayer(keyEvent);
         keyEvent.consume();
@@ -153,12 +146,10 @@ public class MyViewController implements IView{
         }
     }
     private void mazeSolved() {
-
         mazeDisplayer.setSolution(viewModel.getSolution());}
     private void playerMoved() {setPlayerPosition(viewModel.getPlayerRow(), viewModel.getPlayerCol());}
     private void mazeGenerated() {
-        t1 = new Music("startSong", false);
-        t1.start();
+//        playMusic("startSong"); //TODO release
         mazeDisplayer.drawMaze(viewModel.getMaze());}
     private void mazeSaved(){
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -166,8 +157,7 @@ public class MyViewController implements IView{
         alert.show();
     }
     private void isSolved(){
-        t1 = new Music("endSong", false);
-        t1.start();
+//        playMusic("endSong");//TODO release
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setContentText("Maze resolved successfully");
         alert.show();
@@ -177,12 +167,55 @@ public class MyViewController implements IView{
             Stage stage = new Stage();
             stage.setTitle("About");
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("About.fxml")));
-            Scene scene = new Scene(root, 510, 210);
+            Scene scene = new Scene(root, 610, 350);
             stage.setScene(scene);
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.show();
         } catch (Exception e) {
             System.out.println("Error About.fxml not found");
+        }
+    }
+    public void help(ActionEvent actionEvent) {
+        try {
+            Stage stage = new Stage();
+            stage.setTitle("Information");
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Help.fxml")));
+            Scene scene = new Scene(root, 800, 420);
+            stage.setScene(scene);
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.show();
+        } catch (Exception e) {
+            System.out.println("Error Help.fxml not found");
+        }
+    }
+    public void playMusic(String songName){
+        stopMusic();
+        audio = new AudioClip(new File(String.format("ATP-Project-PartC/resources/%s.mp3", songName)).toURI().toString());
+        runMusic();
+    }
+    private void runMusic(){
+        int playTimes = 1;
+        audio.setVolume(0.1f);
+        audio.setCycleCount(playTimes);
+        audio.play();
+    }
+    private void stopMusic(){
+        if (audio != null) {
+            audio.stop();
+        }
+        audio = null;
+    }
+    public void updateProperties(ActionEvent actionEvent) {
+        try {
+            Stage stage = new Stage();
+            stage.setTitle("Option");
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Option.fxml")));
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.initModality(Modality.APPLICATION_MODAL); //Lock the window until it closes
+            stage.show();
+        } catch (Exception e) {
+            System.out.println("Error Option.fxml not found");
         }
     }
 }

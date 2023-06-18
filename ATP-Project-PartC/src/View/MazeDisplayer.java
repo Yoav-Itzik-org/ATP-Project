@@ -104,7 +104,6 @@ public class MazeDisplayer extends Canvas {
         }
     }
     public void drawSolutionPath(GraphicsContext graphicsContext, double cellHeight, double cellWidth) {
-        // Yoav's Implementation - Maybe bizayon
         graphicsContext.setFill(Color.GREEN);
         for(int[] coordinates : solution){
             double y = coordinates[0] * cellWidth;

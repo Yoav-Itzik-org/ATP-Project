@@ -72,7 +72,6 @@ public class MyViewModel extends Observable implements Observer {
             default -> {return;}
         }
         model.updatePlayerLocation(direction);
-        isSolved();
     }
     public void openMaze(File maze){
         model.loadMaze(maze);
