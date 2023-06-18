@@ -176,7 +176,7 @@ public class MyViewController implements IView{
             Stage stage = new Stage();
             stage.setTitle("About");
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("About.fxml")));
-            Scene scene = new Scene(root, 300, 165);
+            Scene scene = new Scene(root, 510, 210);
             stage.setScene(scene);
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.show();
