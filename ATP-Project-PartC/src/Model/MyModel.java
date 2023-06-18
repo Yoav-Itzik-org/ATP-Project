@@ -182,8 +182,12 @@ public class MyModel extends Observable implements IModel {
         setChanged();
         notifyObservers("maze generated");
     }
-    public void exitProject(){
-        setChanged();
-        notifyObservers("exit project");
+    public void isSolved(){
+        int row = getPlayerRow();
+        int col = getPlayerCol();
+        if (row == getMaze().getRows() -1 && col == getMaze().getColumns() - 1) {
+            setChanged();
+            notifyObservers("maze solved by user");
+        }
     }
 }

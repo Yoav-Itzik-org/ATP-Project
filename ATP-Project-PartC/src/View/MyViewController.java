@@ -10,6 +10,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.Window;
@@ -17,15 +19,15 @@ import javafx.stage.Window;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Paths;
 import java.util.Observable;
 import java.util.ResourceBundle;
-
-import static com.sun.javafx.application.PlatformImpl.exit;
 
 public class MyViewController implements IView{
     public MyViewModel viewModel;
     @FXML
     private Button solve;
+    public Thread t1;
 
 
     public MyViewController(){
@@ -43,6 +45,7 @@ public class MyViewController implements IView{
 
     StringProperty updatePlayerRow = new SimpleStringProperty();
     StringProperty updatePlayerCol = new SimpleStringProperty();
+
 
     public String getUpdatePlayerRow() {
         return updatePlayerRow.get();
@@ -143,16 +146,28 @@ public class MyViewController implements IView{
             case "player moved" -> playerMoved();
             case "maze solved" -> mazeSolved();
             case "maze saved" -> mazeSaved();
-            case "exit project" -> exit();
+            case "maze solved by user" -> isSolved();
             default -> System.out.println("Not implemented change: " + change);
         }
     }
-    private void mazeSolved() {mazeDisplayer.setSolution(viewModel.getSolution());}
+    private void mazeSolved() {
+
+        mazeDisplayer.setSolution(viewModel.getSolution());}
     private void playerMoved() {setPlayerPosition(viewModel.getPlayerRow(), viewModel.getPlayerCol());}
-    private void mazeGenerated() {mazeDisplayer.drawMaze(viewModel.getMaze());}
+    private void mazeGenerated() {
+        t1 = new Music("startSong");
+        t1.start();
+        mazeDisplayer.drawMaze(viewModel.getMaze());}
     private void mazeSaved(){
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setContentText("Maze saved successfully");
+        alert.show();
+    }
+    private void isSolved(){
+        t1 = new Music("endSong");
+        t1.start();
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setContentText("Maze resolved successfully");
         alert.show();
     }
 }

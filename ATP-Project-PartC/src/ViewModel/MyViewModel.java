@@ -69,17 +69,15 @@ public class MyViewModel extends Observable implements Observer {
             case E -> direction = Direction.UP_RIGHT;
             case Z -> direction = Direction.DOWN_LEFT;
             case C -> direction = Direction.DOWN_RIGHT;
-            default -> {
-                // no need to move the player...
-                return;
-            }
+            default -> {return;}
         }
         model.updatePlayerLocation(direction);
+        isSolved();
     }
     public void openMaze(File maze){
         model.loadMaze(maze);
     }
     public void saveMaze(File maze){model.saveMaze(maze);}
     public void setMaze(Maze maze){model.setMaze(maze);}
-    public void exitProject(){model.exitProject();}
+    public void isSolved(){model.isSolved();}
 }
