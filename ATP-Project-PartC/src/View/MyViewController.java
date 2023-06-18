@@ -2,6 +2,7 @@ package View;
 
 import Model.MyModel;
 import ViewModel.MyViewModel;
+import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
@@ -116,8 +117,8 @@ public class MyViewController implements IView{
         // TODO
     }
     public void exitProject(ActionEvent actionEvent) {
-        ObservableList<Window> window = Stage.getWindows();
-        window.get(0).hide();
+        Platform.exit();
+        System.exit(0);
     }
     public void help(ActionEvent actionEvent) {
         // TODO
