@@ -38,6 +38,9 @@ public class MyViewModel extends Observable implements Observer {
         }
         return null;
     }
+    public boolean containsPath(int row, int col){
+        return model.containsPath(row, col);
+    }
     public int getPlayerRow(){
         return model.getPlayerRow();
     }
@@ -72,6 +75,10 @@ public class MyViewModel extends Observable implements Observer {
             default -> {return;}
         }
         model.updatePlayerLocation(direction);
+    }
+    public void setPlayerLocation(int row, int col){
+        if(containsPath(row, col))
+            model.movePlayer(row, col);
     }
     public void openMaze(File maze){
         model.loadMaze(maze);

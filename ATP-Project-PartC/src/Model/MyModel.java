@@ -30,6 +30,11 @@ public class MyModel extends Observable implements IModel {
     }
 
     @Override
+    public boolean containsPath(int row, int col) {
+        return maze.containsPath(row, col);
+    }
+
+    @Override
     public void generateMaze(int rows, int cols) {
         try {
             Client client = new Client(InetAddress.getLocalHost(), 5400, (inFromServer, outToServer) -> {
@@ -111,10 +116,11 @@ public class MyModel extends Observable implements IModel {
         }
     }
 
-    private void movePlayer(int row, int col){
+    public void movePlayer(int row, int col){
         playerPosition = new Position(row, col);
         setChanged();
         notifyObservers("player moved");
+        isSolved();
     }
     public int getPlayerRow() {return playerPosition.getRowIndex();}
     public int getPlayerCol() {

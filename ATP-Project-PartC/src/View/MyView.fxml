@@ -79,9 +79,9 @@
     <center>
         <Pane BorderPane.alignment="CENTER">
             <Rectangle x="0" y="0" width="400" height="1" fill="black" />
-            <Rectangle x="0" y="390" width="400" height="1" fill="black" />
+            <Rectangle x="0" y="400" width="400" height="1" fill="black" />
             <Rectangle x="0" y="0" width="1" height="400" fill="black" />
-            <Rectangle x="390" y="0" width="1" height="400" fill="black" />
+            <Rectangle x="400" y="0" width="1" height="400" fill="black" />
             <children>
                 <MazeDisplayer fx:id="mazeDisplayer" height="400.0" imageFileNamePlayer="ATP-Project-PartC/resources/spongebob.png" imageFileNameWall="ATP-Project-PartC/resources/crabypatty.png" imageFileNameFinal="ATP-Project-PartC/resources/final.png" onKeyPressed="#keyPressed" width="400.0" />
             </children>

@@ -19,4 +19,6 @@ public interface IModel {
     Solution getSolution();
     void setMaze(Maze maze);
     void isSolved();
+    boolean containsPath(int row, int col);
+    void movePlayer(int row, int col);
 }

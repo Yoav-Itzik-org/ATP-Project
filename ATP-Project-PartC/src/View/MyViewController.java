@@ -34,6 +34,10 @@ public class MyViewController implements IView{
     public Thread t1;
     private AudioClip audio ;
 
+    public boolean playerDragging = true;
+    double playerX;
+    double playerY;
+
     public MyViewController(){
         setViewModel(new MyViewModel(new MyModel()));
     }
@@ -71,6 +75,18 @@ public class MyViewController implements IView{
     public void initialize(URL url, ResourceBundle resourceBundle) {
         playerRow.textProperty().bind(updatePlayerRow);
         playerCol.textProperty().bind(updatePlayerCol);
+        mazeDisplayer.setOnMouseDragged(event -> {
+            double displayWidth = mazeDisplayer.getWidth();
+            double displayHeight = mazeDisplayer.getHeight();
+            double rowWidth = displayWidth / viewModel.getMaze()[0].length;
+            double colWidth = displayHeight / viewModel.getMaze().length;
+            double clickX = event.getSceneX() - mazeDisplayer.getTranslateX();
+            double clickY = event.getSceneY() - mazeDisplayer.getTranslateY();
+            int playerRow = (int) (clickY / rowWidth);
+            int playerCol = (int) (clickX / colWidth) - 2;
+            if(viewModel.containsPath(playerRow, playerCol))
+                viewModel.setPlayerLocation(playerRow, playerCol);
+        });
     }
 
     public void generateMaze(ActionEvent actionEvent) {
@@ -128,6 +144,7 @@ public class MyViewController implements IView{
         mazeDisplayer.setPlayerPosition(row, col);
         setUpdatePlayerRow(row);
         setUpdatePlayerCol(col);
+
     }
 
     public void mouseClicked(MouseEvent mouseEvent) {
@@ -161,6 +178,7 @@ public class MyViewController implements IView{
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setContentText("Maze resolved successfully");
         alert.show();
+        viewModel.setPlayerLocation(0, 0);
     }
     public void about(ActionEvent actionEvent) {
         try {
