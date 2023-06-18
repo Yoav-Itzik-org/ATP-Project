@@ -39,7 +39,7 @@ public class OptionController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         algo.getItems().addAll("BFS", "DFS" , "Best First Search");
-        maze.getItems().addAll("EmptyMaze", "SimpleMaze", "MyMazer");
+        maze.getItems().addAll("EmptyMaze", "SimpleMaze", "MyMaze");
         thread.getItems().addAll("1", "2", "3", "4", "5");
     }
 
