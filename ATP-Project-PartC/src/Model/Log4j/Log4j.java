@@ -7,16 +7,16 @@ import org.apache.logging.log4j.core.config.Configurator;
 
 public class Log4j {
 
-    private static final Logger LOG = LogManager.getLogger();
+    private static final Logger LOG = LogManager.getLogger(Log4j.class.getName());
 
     public static void main(String[] args) {
-        //loggingWithLog4j2();
+        loggingWithLog4j2();
         demonstrateLoggingLevels();
     }
 
     /**
      * Demonstrate logging using Log4J.
-     * Log4j2 logging levels: https://www.tutorialspoint.com/log4j/log4j_logging_levels.htm
+     * Log4j2 logging levels: <a href="https://www.tutorialspoint.com/log4j/log4j_logging_levels.htm">...</a>
      * A log request of level p in a logger with level q is enabled if p >= q. This rule is at the heart of log4j.
      * It assumes that levels are ordered.
      * For the standard levels, we have ALL < DEBUG < INFO < WARN < ERROR < FATAL < OFF.
@@ -26,14 +26,13 @@ public class Log4j {
     }
 
     private static void demonstrateLoggingLevels() {
-        // org.apache.logging.log4j.core.config.Configurator;
+//         org.apache.logging.log4j.core.config.Configurator;
         Configurator.setLevel("com.example.Foo", Level.DEBUG);
 
         // You can also set the root logger:
         Configurator.setRootLevel(Level.DEBUG);
 
         LOG.info(String.format("Logging level: %s", LOG.getLevel()));
-
         LOG.trace("Trace Message!");
         LOG.debug("Debug Message!");
         LOG.info("Info Message!");

@@ -9,6 +9,8 @@ import Server.ServerStrategyGenerateMaze;
 import Server.Server;
 import algorithms.search.Solution;
 import algorithms.mazeGenerators.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.*;
 import java.net.InetAddress;
@@ -22,9 +24,11 @@ public class MyModel extends Observable implements IModel {
     private Maze maze;
     private Position playerPosition;
     private Solution solution;
+    private final Logger LOG = LogManager.getLogger();
     public MyModel() {
         mazeGeneratingServer = new Server(5400, 1000, new ServerStrategyGenerateMaze());
         solveSearchProblemServer = new Server(5401, 1000, new ServerStrategySolveSearchProblem());
+        LOG.info("Starting server at port = 5400"); LOG.info("Starting server at port = 5401");
         solveSearchProblemServer.start();
         mazeGeneratingServer.start();
     }
@@ -39,6 +43,7 @@ public class MyModel extends Observable implements IModel {
         try {
             Client client = new Client(InetAddress.getLocalHost(), 5400, (inFromServer, outToServer) -> {
                 try {
+                    LOG.info("Client accepted to Generate Maze ");
                     ObjectOutputStream toServer = new ObjectOutputStream(outToServer);
                     ObjectInputStream fromServer = new ObjectInputStream(inFromServer);
                     toServer.flush();
@@ -51,11 +56,13 @@ public class MyModel extends Observable implements IModel {
                     is.read(decompressedMaze);
                     maze = new Maze(decompressedMaze);
                 } catch (Exception var10) {
+                    LOG.error("Couldn't generate the maze");
                     var10.printStackTrace();
                 }
             });
             client.communicateWithServer();
         } catch (Exception var1) {
+            LOG.error("Couldn't connect to the client");
             var1.printStackTrace();
         }
         setChanged();
@@ -70,6 +77,7 @@ public class MyModel extends Observable implements IModel {
 
     @Override
     public void updatePlayerLocation(Direction direction) {
+        LOG.info("Moving player's location to" + direction.toString());
         int row = playerPosition.getRowIndex();
         int col = playerPosition.getColumnIndex();
         boolean canUp = maze.containsPath(row - 1, col);
@@ -133,6 +141,7 @@ public class MyModel extends Observable implements IModel {
         try {
             Client client = new Client(InetAddress.getLocalHost(), 5401, (inFromServer, outToServer) -> {
                 try {
+                    LOG.info("Client accepted to Solve Maze ");
                     ObjectOutputStream toServer = new ObjectOutputStream(outToServer);
                     ObjectInputStream fromServer = new ObjectInputStream(inFromServer);
                     toServer.flush();
@@ -140,11 +149,13 @@ public class MyModel extends Observable implements IModel {
                     toServer.flush();
                     solution = (Solution)fromServer.readObject();
                 } catch (Exception var10) {
+                    LOG.error("Couldn't solve the maze");
                     var10.printStackTrace();
                 }
             });
             client.communicateWithServer();
         } catch (UnknownHostException var1) {
+            LOG.error("Couldn't connect to the client");
             var1.printStackTrace();
         }
         setChanged();
@@ -159,7 +170,9 @@ public class MyModel extends Observable implements IModel {
             out.write(maze.toByteArray());
             out.flush();
             out.close();
+            LOG.info(String.format("Saving maze as %s", mazeFile.getName()));
         } catch (IOException var8) {
+            LOG.error("Can't save the maze");
             var8.printStackTrace();
         }
         setChanged();
@@ -173,7 +186,9 @@ public class MyModel extends Observable implements IModel {
             in.read(savedMazeBytes);
             in.close();
             maze = new Maze(savedMazeBytes);
+            LOG.info(String.format("Loading %s's maze", mazeFile.getName()));
         } catch (IOException var7) {
+            LOG.error("Can't load the maze file");
             var7.printStackTrace();
             savedMazeBytes = null;
         }

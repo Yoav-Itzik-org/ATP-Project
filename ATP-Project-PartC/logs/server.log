@@ -1,0 +1,14 @@
+2023.06.19 16:04:45.881 INFO  Model.MyModel - Starting server at port = 5400
+2023.06.19 16:04:45.885 INFO  Model.MyModel - Starting server at port = 5401
+2023.06.19 16:05:08.458 INFO  Model.MyModel - Client accepted to Generate Maze 
+2023.06.19 16:09:03.899 INFO  Model.MyModel - Starting server at port = 5400
+2023.06.19 16:09:03.903 INFO  Model.MyModel - Starting server at port = 5401
+2023.06.19 16:09:21.552 INFO  Model.MyModel - Starting server at port = 5400
+2023.06.19 16:09:21.556 INFO  Model.MyModel - Starting server at port = 5401
+2023.06.19 16:10:20.571 INFO  Model.MyModel - Starting server at port = 5400
+2023.06.19 16:10:20.575 INFO  Model.MyModel - Starting server at port = 5401
+2023.06.19 16:11:24.681 INFO  Model.MyModel - Starting server at port = 5400
+2023.06.19 16:11:24.685 INFO  Model.MyModel - Starting server at port = 5401
+2023.06.19 16:11:49.308 INFO  Model.MyModel - Starting server at port = 5400
+2023.06.19 16:11:49.312 INFO  Model.MyModel - Starting server at port = 5401
+2023.06.19 16:11:53.206 INFO  Model.MyModel - Client accepted to Generate Maze 
