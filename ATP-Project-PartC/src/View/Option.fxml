@@ -7,8 +7,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane minHeight="300.0" minWidth="400.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.OptionController">
-    <children>
+<Pane minHeight="300.0" minWidth="400.0" stylesheets="@ProjectStyle.css" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.OptionController">
         <AnchorPane />
         <Button fx:id="exit" layoutX="200.0" layoutY="251.0" mnemonicParsing="false" onAction="#closew" text="Close Window" />
         <Label layoutX="18.0" layoutY="67.0" prefHeight="42.0" prefWidth="130.0" text="Algorithem">
@@ -35,5 +34,4 @@
             </font>
         </Label>
         <Button fx:id="save" layoutX="88.0" layoutY="251.0" mnemonicParsing="false" onAction="#SetConf" text="Save" />
-    </children>
 </Pane>

@@ -11,7 +11,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
-public class MazeDisplayer extends Canvas {
+public class MazeDisplayed extends Canvas {
     private int[][] maze;
     private ArrayList<int[]> solution;
     // player position:

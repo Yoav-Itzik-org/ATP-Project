@@ -4,10 +4,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.Pane?>
 
-<?import javafx.scene.layout.VBox?>
-<VBox  prefHeight="430.0" prefWidth="600.0" stylesheets="@ProjectStyle.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.AboutController">
-        <children>
+<Pane  prefHeight="430.0" prefWidth="600.0" stylesheets="@ProjectStyle.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.AboutController">
             <Label fx:id="text" alignment="TOP_LEFT"/>
-            <Button fx:id="exit" alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#closePane" text="Close Window" />
-        </children>
-</VBox>
+            <Button fx:id="exit" layoutX="280.0" layoutY="300.0" alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#closePane" text="Close Window" />
+</Pane>
