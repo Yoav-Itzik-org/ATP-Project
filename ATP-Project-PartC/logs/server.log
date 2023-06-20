@@ -592,3 +592,12 @@
 2023.06.20 11:46:31.914 INFO  Model.MyModel - Moving player's location toDOWN
 2023.06.20 11:46:32.090 INFO  Model.MyModel - Moving player's location toDOWN
 2023.06.20 11:46:32.226 INFO  Model.MyModel - Moving player's location toDOWN
+2023.06.20 12:04:13.814 INFO  Model.MyModel - Starting server at port = 5400
+2023.06.20 12:04:13.821 INFO  Model.MyModel - Starting server at port = 5401
+2023.06.20 12:06:28.995 INFO  Model.MyModel - Starting server at port = 5400
+2023.06.20 12:06:29.000 INFO  Model.MyModel - Starting server at port = 5401
+2023.06.20 12:11:01.823 INFO  Model.MyModel - Starting server at port = 5400
+2023.06.20 12:11:01.829 INFO  Model.MyModel - Starting server at port = 5401
+2023.06.20 12:12:04.489 INFO  Model.MyModel - Starting server at port = 5400
+2023.06.20 12:12:04.495 INFO  Model.MyModel - Starting server at port = 5401
+2023.06.20 12:12:10.386 INFO  Model.MyModel - Client accepted to Generate Maze 
