@@ -34,12 +34,40 @@ import java.util.ResourceBundle;
 
 public class MyViewController implements IView{
     public MyViewModel viewModel;
-    @FXML private Pane mazePanel;
+    @FXML private VBox mazePanel;
     @FXML private Button solve;
     @FXML private BorderPane totalPanel;
     private AudioClip audio ;
     private static final double ZOOM_FACTOR = 1.1;
 
+    public void setStage(Stage stage){
+        ChangeListener<Number> stageSizeListener = (observable, oldValue, newValue) -> {
+            totalPanel.setScaleX(totalPanel.getScaleX() * newValue.doubleValue() / oldValue.doubleValue());
+            totalPanel.setScaleY(totalPanel.getScaleY() * newValue.doubleValue() / oldValue.doubleValue());
+            mazePanel.setScaleX(mazePanel.getScaleX() * newValue.doubleValue() / oldValue.doubleValue());
+            mazePanel.setScaleY(mazePanel.getScaleY() * newValue.doubleValue() / oldValue.doubleValue());
+            double width = totalPanel.getWidth();
+            double height = totalPanel.getHeight();
+        };
+        stage.widthProperty().addListener(stageSizeListener);
+        stage.heightProperty().addListener(stageSizeListener);
+    }
+    public void setScene(Scene scene){
+        ChangeListener<Number> stageSizeListener = (observable, oldValue, newValue) -> {
+            System.out.format("old: %f, new: %f", oldValue, newValue);
+            System.out.println("; totalPane: " + totalPanel.getScaleX() + ", " + totalPanel.getScaleY());
+//            totalPanel.setScaleX(newValue.doubleValue() / oldValue.doubleValue());
+//            totalPanel.setScaleX(scene.getHeight());
+//            totalPanel.setScaleY(scene.getHeight());
+            double ratio = newValue.doubleValue() / oldValue.doubleValue();
+            double newWidth = totalPanel.getWidth() * ratio;
+            double newHeight = totalPanel.getHeight() * ratio;
+            totalPanel.setScaleX(newWidth); totalPanel.setScaleY(newHeight);
+        };
+        scene.widthProperty().addListener(stageSizeListener);
+        scene.heightProperty().addListener(stageSizeListener);
+
+    }
 
     public MyViewController(){
         setViewModel(new MyViewModel(new MyModel()));
@@ -90,7 +118,7 @@ public class MyViewController implements IView{
             if(viewModel.containsPath(playerRow, playerCol))
                 viewModel.setPlayerLocation(playerRow, playerCol);
         });
-        mazeDisplayed.setOnScroll(event -> {
+        mazePanel.setOnScroll(event -> {
             if (event.isControlDown()){
                 double scaleFactor = event.getDeltaY() > 0 ? ZOOM_FACTOR : 1 / ZOOM_FACTOR;
                 mazePanel.setScaleX(mazePanel.getScaleX() * scaleFactor);

@@ -17,11 +17,12 @@ public class Main extends Application {
         stage.setTitle("Spongebob Maze");
         stage.setScene(scene);
         stage.show();
-
         stage.setOnCloseRequest((event) -> {
             Platform.exit();
             System.exit(0);
         });
+//        ((MyViewController) fxmlLoader.getController()).setScene(scene);
+        ((MyViewController) fxmlLoader.getController()).setStage(stage);
     }
 
     public static void main(String[] args) {
