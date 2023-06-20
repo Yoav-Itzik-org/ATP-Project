@@ -19,7 +19,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import View.MazeDisplayed?>
 <?import javafx.scene.shape.Rectangle?>
-<BorderPane onMouseClicked="#mouseClicked" prefHeight="408.0" prefWidth="594.0" stylesheets="@ProjectStyle.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.MyViewController">
+<BorderPane fx:id="totalPanel" onMouseClicked="#mouseClicked" prefHeight="408.0" prefWidth="594.0" stylesheets="@ProjectStyle.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.MyViewController">
     <left>
         <VBox prefHeight="200.0" prefWidth="178.0" spacing="5.0" BorderPane.alignment="CENTER">
                 <GridPane prefWidth="168.0">
@@ -75,14 +75,15 @@
         </VBox>
     </top>
     <center>
-        <Pane fx:id="mazePanel" BorderPane.alignment="CENTER">
-            <Rectangle x="0" y="0" width="400" height="1" fill="black" />
-            <Rectangle x="0" y="400" width="400" height="1" fill="black" />
-            <Rectangle x="0" y="0" width="1" height="400" fill="black" />
-            <Rectangle x="400" y="0" width="1" height="400" fill="black" />
-            <MazeDisplayed fx:id="mazeDisplayed" height="400.0" imageFileNamePlayer="ATP-Project-PartC/resources/spongebob.png" imageFileNameWall="ATP-Project-PartC/resources/crabypatty.png" imageFileNameFinal="ATP-Project-PartC/resources/final.png" onKeyPressed="#keyPressed" width="400.0" />
+        <VBox fx:id="mazePanel" BorderPane.alignment="CENTER">
+            <Pane>
+            <Rectangle x="0" y="0" width="800" height="1" fill="black" />
+            <Rectangle x="0" y="750" width="800" height="1" fill="black" />
+            <Rectangle x="0" y="0" width="1" height="750" fill="black" />
+            <Rectangle x="800" y="0" width="1" height="750" fill="black" />
+            <MazeDisplayed fx:id="mazeDisplayed" height="750.0" width="800.0" imageFileNamePlayer="ATP-Project-PartC/resources/spongebob.png" imageFileNameWall="ATP-Project-PartC/resources/crabypatty.png" imageFileNameFinal="ATP-Project-PartC/resources/final.png" onKeyPressed="#keyPressed" />
             <padding>
-                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+<!--                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />-->
             </padding>
         </Pane>
     </center>

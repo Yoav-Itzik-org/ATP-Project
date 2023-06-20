@@ -47,38 +47,14 @@ public class MazeDisplayed extends Canvas {
         return imageFileNameWall.get();
     }
 
-    public String imageFileNameWallProperty() {
-        return imageFileNameWall.get();
-    }
-
-    public void setImageFileNameWall(String imageFileNameWall) {
-        this.imageFileNameWall.set(imageFileNameWall);
-    }
-
     // PLAYER
     public String getImageFileNamePlayer() {
         return imageFileNamePlayer.get();
     }
 
-    public String imageFileNamePlayerProperty() {
-        return imageFileNamePlayer.get();
-    }
-
-    public void setImageFileNamePlayer(String imageFileNamePlayer) {
-        this.imageFileNamePlayer.set(imageFileNamePlayer);
-    }
-
     // FINAL
     public String getImageFileNameFinal() {
         return imageFileNameFinal.get();
-    }
-
-    public String imageFileNameFinalProperty() {
-        return imageFileNameFinal.get();
-    }
-
-    public void setImageFileNameFinal(String imageFileNameFinal) {
-        this.imageFileNameFinal.set(imageFileNameFinal);
     }
 
     public void drawMaze(int[][] maze) {

@@ -9,10 +9,6 @@ import java.util.ResourceBundle;
 public class HelpController implements Initializable {
     public javafx.scene.control.Button exit;
     public javafx.scene.control.Label text;
-    public void close() {
-        Platform.exit();
-    }
-
     public void closePane() {
         Stage s = (Stage) exit.getScene().getWindow();
         s.close();

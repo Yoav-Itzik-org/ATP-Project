@@ -4,14 +4,16 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import java.io.IOException;
 
 public class Main extends Application {
+
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("MyView.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 1000, 1000);
+        Scene scene = new Scene(fxmlLoader.load(), 1000, 1000, Color.rgb(122,199,227));
         stage.setTitle("Spongebob Maze");
         stage.setScene(scene);
         stage.show();
@@ -23,7 +25,7 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
-//        Music music = new Music("backgroundMusic"); //TODO release
+        Music music = new Music("backgroundMusic"); //TODO release
         launch();
     }
 }

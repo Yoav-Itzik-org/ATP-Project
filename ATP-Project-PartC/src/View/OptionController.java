@@ -22,10 +22,6 @@ public class OptionController implements Initializable {
     String threadNum;
 
     public void close() {
-        Platform.exit();
-    }
-
-    public void closew() {
         Stage s = (Stage) exit.getScene().getWindow();
         s.close();
     }
