@@ -25,7 +25,7 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
-        Music music = new Music("backgroundMusic"); //TODO release
+        Music music = new Music("backgroundMusic");
         launch();
     }
 }

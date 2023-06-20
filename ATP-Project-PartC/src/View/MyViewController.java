@@ -183,7 +183,7 @@ public class MyViewController implements IView{
         mazeDisplayed.setSolution(viewModel.getSolution());}
     private void playerMoved() {setPlayerPosition(viewModel.getPlayerRow(), viewModel.getPlayerCol());}
     private void mazeGenerated() {
-//        playMusic("startSong"); //TODO release
+        playMusic("startSong");
         mazeDisplayed.drawMaze(viewModel.getMaze());}
     private void mazeSaved(){
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -191,7 +191,7 @@ public class MyViewController implements IView{
         alert.show();
     }
     private void isSolved(){
-//        playMusic("endSong");//TODO release
+        playMusic("endSong");
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setContentText("Maze resolved successfully");
         alert.show();
